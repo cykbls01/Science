@@ -40,7 +40,8 @@ public class UserUtil {
         }
         else
         {
-            if(user1.getPassword().equals(bCryptPasswordEncoder.encode(user.getPassword()))==true)
+
+            if(bCryptPasswordEncoder.matches(user.getPassword(),user1.getPassword())==true)
                 return  "success";
             else
                 return "error";
