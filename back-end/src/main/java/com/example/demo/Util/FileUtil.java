@@ -58,4 +58,11 @@ public class FileUtil {
         input.read(byt);
         return byt;
     }
+
+    public static String DeleteFile(String location)
+    {
+        File file=new File(location);
+        file.delete();
+        return "success";
+    }
 }

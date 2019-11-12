@@ -1,23 +1,42 @@
 package com.example.demo.Entity;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Project")
+
+
 public class Project {
-    @Id
-    private String Id;
+
+
     private String BeginTime;
     private String EndTime;
     private String Title;
     private String Content;
+    private String Name;
+    private String Location;
+    private String UserId;
 
-    public String getId() {
-        return Id;
+    public String getUserId() {
+        return UserId;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setUserId(String userId) {
+        UserId = userId;
     }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
 
     public String getBeginTime() {
         return BeginTime;
