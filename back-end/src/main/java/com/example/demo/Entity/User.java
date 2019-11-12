@@ -17,6 +17,16 @@ public class User {
 
     private Expert ExpertId;
 
+    private String ImageName;
+
+    public String getImageName() {
+        return ImageName;
+    }
+
+    public void setImageName(String imageName) {
+        ImageName = imageName;
+    }
+
     public Expert getExpertId() {
         return ExpertId;
     }

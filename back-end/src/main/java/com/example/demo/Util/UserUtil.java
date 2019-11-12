@@ -4,12 +4,13 @@ import com.example.demo.Dao.UserDao;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 public class UserUtil {
 
     private static BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 
-    public static String Register(User user, UserRepository userRepository)
+    public static String Register(User user, UserRepository userRepository)//注册用户，如果用户名和邮箱重复，则报错，否则密码加密后注册
     {
 
         if(UserDao.FindUserByName(user.getUsername(),userRepository)!=null)
@@ -30,7 +31,7 @@ public class UserUtil {
 
     }
 
-    public static String Login(User user,UserRepository userRepository)
+    public static String Login(User user,UserRepository userRepository)//登录，如果用户名找不到报错，验证密码是否正确，返回相应信息
     {
         User user1=UserDao.FindUserByName(user.getUsername(),userRepository);
         if(user1==null)
@@ -49,7 +50,7 @@ public class UserUtil {
         }
     }
 
-    public static String ModifyUser(User user,UserRepository userRepository)
+    public static String ModifyUser(User user,UserRepository userRepository)//修改个人信息，先查看用户名和邮箱是否重复，然后完成修改
     {
         User user1=userRepository.findById(user.getId()).get();
         if(user1.getUsername().equals(user.getUsername())==false&&UserDao.FindUserByName(user.getUsername(),userRepository)!=null)
@@ -64,14 +65,14 @@ public class UserUtil {
         }
     }
 
-    public static String ModifyPassword(User user,UserRepository userRepository)
+    public static String ModifyPassword(User user,UserRepository userRepository)//修改密码
     {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "true";
     }
 
-    public static String FindPassword(String email,UserRepository userRepository)
+    public static String FindPassword(String email,UserRepository userRepository)//找回密码，发送验证邮件，验证邮箱是否存在，然后发送找回邮件
     {
         User user1=UserDao.FindUserByEmail(email,userRepository);
         if(user1==null)
@@ -88,6 +89,29 @@ public class UserUtil {
 
         }
 
+
+
+    }
+
+    public static String UploadImage(User user, MultipartFile file,UserRepository userRepository)
+    {
+        user=userRepository.findById(user.getId()).get();
+        userRepository.delete(user);
+        user.setImageName(file.getOriginalFilename());
+        userRepository.save(user);
+        FileUtil.WriteFile("/Users/chenyikun/"+user.getId()+"/image/"+file.getOriginalFilename(),file);
+        return "success";
+
+
+
+
+    }
+
+    public static byte[] GetImage(User user,UserRepository userRepository) throws Exception {
+
+
+        user=userRepository.findById(user.getId()).get();
+        return FileUtil.GetImage("/Users/chenyikun"+user.getId()+"/image/"+user.getImageName());
 
 
     }
