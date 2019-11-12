@@ -1,17 +1,21 @@
 package com.example.demo.Util;
 
+import com.example.demo.Dao.ResourcesDao;
 import com.example.demo.Entity.*;
 import com.example.demo.Repository.ResourcesRepository;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.text.ParseException;
+import java.util.List;
 
 public class ResourcesUtil {
 
 
 
-    public static String AddResources(User user, Resources resources, ResourcesRepository resourcesRepository)
+    public static String AddResources(Resources resources, ResourcesRepository resourcesRepository)
     {
-        resources.setUserId(user.getId());
 
+        resources.setTime(Time.getTime());
         resourcesRepository.save(resources);
         return "success";
 
@@ -89,6 +93,25 @@ public class ResourcesUtil {
         FileUtil.DeleteFile(resources.getPatent().getLocation());
         resources.setPatent(null);
         return resources;
+    }
+
+    public static String ModifyResources(Resources resources,ResourcesRepository resourcesRepository)
+    {
+        resources.setTime(Time.getTime());
+        resourcesRepository.save(resources);
+        return "success";
+    }
+
+    public static List<Resources> SearchResources(String name,ResourcesRepository resourcesRepository) throws ParseException {
+        List<Resources> resourcesList= ResourcesDao.FindByName(name,resourcesRepository);
+        resourcesList=Time.sort(resourcesList);
+
+
+        return resourcesList;
+
+
+
+
     }
 
 

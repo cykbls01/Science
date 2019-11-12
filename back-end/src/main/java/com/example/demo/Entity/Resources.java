@@ -11,6 +11,15 @@ public class Resources {
     private Project Project;
     private Passage Passage;
     private Patent Patent;
+    private String Title;
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
 
     public com.example.demo.Entity.Project getProject() {
         return Project;
