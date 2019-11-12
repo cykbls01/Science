@@ -8,32 +8,32 @@ public class Resources {
     private String Id;
     private String UserId;
     private String Time;
-    private String PassageId;
-    private String ProjectId;
-    private String PatentId;
+    private Project Project;
+    private Passage Passage;
+    private Patent Patent;
 
-    public String getPassageId() {
-        return PassageId;
+    public com.example.demo.Entity.Project getProject() {
+        return Project;
     }
 
-    public void setPassageId(String passageId) {
-        PassageId = passageId;
+    public void setProject(com.example.demo.Entity.Project project) {
+        Project = project;
     }
 
-    public String getProjectId() {
-        return ProjectId;
+    public com.example.demo.Entity.Passage getPassage() {
+        return Passage;
     }
 
-    public void setProjectId(String projectId) {
-        ProjectId = projectId;
+    public void setPassage(com.example.demo.Entity.Passage passage) {
+        Passage = passage;
     }
 
-    public String getPatentId() {
-        return PatentId;
+    public com.example.demo.Entity.Patent getPatent() {
+        return Patent;
     }
 
-    public void setPatentId(String patentId) {
-        PatentId = patentId;
+    public void setPatent(com.example.demo.Entity.Patent patent) {
+        Patent = patent;
     }
 
     public String getId() {
