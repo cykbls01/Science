@@ -50,7 +50,7 @@ public class ResourcesUtil {
     {
 
         patent.setName(multipartFile.getName());
-        patent.setLocation("Users/chenyikun/"+user.getId()+"/resources/");
+        patent.setLocation("Users/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
         FileUtil.WriteFile(patent.getLocation(),multipartFile);
         resources.setPatent(patent);
 

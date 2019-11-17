@@ -41,10 +41,10 @@ public class TestController {
         user.setPassword("cyk");
         return UserUtil.Register(user,userRepository);
     }
-    /*@ResponseBody
+    @ResponseBody
     @PostMapping("/upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file) {
-        FileUtil.WriteFile(file);
+        FileUtil.WriteFile("/Users/chenyikun/",file);
 
 
 
@@ -56,7 +56,7 @@ public class TestController {
         String path="/Users/chenyikun/";
         ResponseEntity<InputStreamResource> response = null;
         try {
-            response = FileUtil.ReadFile(path, "123.jpeg");
+            response = FileUtil.ReadFile(path+"123.jpeg");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,9 +68,9 @@ public class TestController {
     public byte[] image() throws Exception {
 
 
-        byte[] byt = FileUtil.GetImage();
+        byte[] byt = FileUtil.GetImage("/Users/chenyikun/123.jpeg");
         return byt;
-    }*/
+    }
 
 
 

@@ -18,7 +18,7 @@ public class FileUtil {
     public static String WriteFile(String location,MultipartFile file) {
         try {
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(location);
+            Path path = Paths.get(location+file.getOriginalFilename());
             Files.write(path, bytes);
 
 
