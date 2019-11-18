@@ -81,9 +81,7 @@ public class UserUtil {
         }
         else
         {
-            String VCode=String.valueOf((int)(1+Math.random()*(100000-10000+1)));
-            Mail mail=new Mail();
-            mail.sendSimpleMail(user1.getEmail(),"密码找回邮件",VCode);
+
             return "success";
 
 

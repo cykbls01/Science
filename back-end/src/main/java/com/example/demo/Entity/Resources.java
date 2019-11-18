@@ -12,6 +12,15 @@ public class Resources {
     private Passage Passage;
     private Patent Patent;
     private String Title;
+    private String Detail;
+
+    public String getDetail() {
+        return Detail;
+    }
+
+    public void setDetail(String detail) {
+        Detail = detail;
+    }
 
     public String getTitle() {
         return Title;

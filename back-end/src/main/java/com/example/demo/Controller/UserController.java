@@ -5,6 +5,7 @@ import com.example.demo.Dao.UserDao;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Util.FileUtil;
+import com.example.demo.Util.Mail;
 import com.example.demo.Util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,6 +66,43 @@ public class UserController {
         {
             return "error";
         }
+    }
+    @ResponseBody
+    @PostMapping("/user/findpwd")
+    public String Findpwd(@RequestBody String email,HttpSession session)
+    {
+        if(UserUtil.FindPassword(email,userRepository).equals("success"))
+        {
+            User user=UserDao.FindUserByEmail(email,userRepository);
+            String VCode=String.valueOf((int)(1+Math.random()*(100000-10000+1)));
+            Mail mail=new Mail();
+            mail.sendSimpleMail(user.getEmail(),"密码找回邮件",VCode);
+            session.setAttribute("yanzhengma",VCode);
+            session.setAttribute("user",user);
+            return "success";
+        }
+        else
+        {
+            return "error";
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/user/modifypwd")
+    public String Modifypwd(@RequestBody String yanzhengma,@RequestBody String pwd,HttpSession session) {
+        String VCode = (String) session.getAttribute("yanzhengma");
+        User user = (User) session.getAttribute("user");
+        if (VCode.equals(yanzhengma))
+        {
+            user.setPassword(pwd);
+            UserUtil.ModifyPassword(user,userRepository);
+            return "success";
+        }
+        else
+        {
+            return "error";
+        }
+
     }
 
 
