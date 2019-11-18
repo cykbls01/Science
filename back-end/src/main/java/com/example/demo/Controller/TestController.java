@@ -44,7 +44,7 @@ public class TestController {
     @ResponseBody
     @PostMapping("/upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file) {
-        FileUtil.WriteFile("/Users/chenyikun/",file);
+        FileUtil.WriteFile("/usr/chenyikun/",file);
 
 
 
@@ -53,7 +53,7 @@ public class TestController {
     @ResponseBody
     @GetMapping("/download")
     public Object downloadModel(){
-        String path="/Users/chenyikun/";
+        String path="/usr/chenyikun/";
         ResponseEntity<InputStreamResource> response = null;
         try {
             response = FileUtil.ReadFile(path+"123.jpeg");
@@ -68,7 +68,7 @@ public class TestController {
     public byte[] image() throws Exception {
 
 
-        byte[] byt = FileUtil.GetImage("/Users/chenyikun/123.jpeg");
+        byte[] byt = FileUtil.GetImage("/usr/chenyikun/123.jpeg");
         return byt;
     }
 
