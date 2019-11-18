@@ -96,10 +96,10 @@ public class UserUtil {
     public static String UploadImage(User user, MultipartFile file,UserRepository userRepository)
     {
         user=userRepository.findById(user.getId()).get();
-        userRepository.delete(user);
+        FileUtil.DeleteFile("/usr/chenyikun/"+user.getId()+"/image/"+user.getImageName());
         user.setImageName(file.getOriginalFilename());
         userRepository.save(user);
-        FileUtil.WriteFile("/Users/chenyikun/"+user.getId()+"/image/"+file.getOriginalFilename(),file);
+        FileUtil.WriteFile("/usr/chenyikun/"+user.getId()+"/image/"+file.getOriginalFilename(),file);
         return "success";
 
 
@@ -111,7 +111,7 @@ public class UserUtil {
 
 
         user=userRepository.findById(user.getId()).get();
-        return FileUtil.GetImage("/Users/chenyikun"+user.getId()+"/image/"+user.getImageName());
+        return FileUtil.GetImage("/usr/chenyikun/"+user.getId()+"/image/"+user.getImageName());
 
 
     }
