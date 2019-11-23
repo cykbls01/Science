@@ -8,6 +8,7 @@ import com.example.demo.Util.FileUtil;
 import com.example.demo.Util.Mail;
 import com.example.demo.Util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
 
     @ResponseBody
@@ -40,9 +44,9 @@ public class UserController {
     @PostMapping("/user/login")
     public String Login(@RequestBody User user,HttpSession session)
     {
-        if(UserUtil.Login(user,userRepository).equals("success"))
+        if(UserUtil.Login(user,mongoTemplate).equals("success"))
         {
-            user= UserDao.FindUserByName(user.getUsername(),userRepository);
+            user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
             session.setAttribute("user",user);
             return "success";
         }
@@ -56,9 +60,9 @@ public class UserController {
     @PostMapping("/user/register")
     public String Register(@RequestBody User user,HttpSession session)
     {
-        if(UserUtil.Register(user,userRepository).equals("success"))
+        if(UserUtil.Register(user,userRepository,mongoTemplate).equals("success"))
         {
-            user= UserDao.FindUserByName(user.getUsername(),userRepository);
+            user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
             session.setAttribute("user",user);
             return "success";
         }
@@ -71,9 +75,9 @@ public class UserController {
     @PostMapping("/user/findpwd")
     public String Findpwd(@RequestBody String email,HttpSession session)
     {
-        if(UserUtil.FindPassword(email,userRepository).equals("success"))
+        if(UserUtil.FindPassword(email,mongoTemplate).equals("success"))
         {
-            User user=UserDao.FindUserByEmail(email,userRepository);
+            User user=UserDao.FindUserByEmail(email,mongoTemplate);
             String VCode=String.valueOf((int)(1+Math.random()*(100000-10000+1)));
             Mail mail=new Mail();
             mail.sendSimpleMail(user.getEmail(),"密码找回邮件",VCode);

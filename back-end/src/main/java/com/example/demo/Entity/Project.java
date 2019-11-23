@@ -1,6 +1,7 @@
 package com.example.demo.Entity;
 
 
+import java.util.List;
 
 public class Project {
 
@@ -9,24 +10,16 @@ public class Project {
     private String EndTime;
     private String Title;
     private String Content;
-    private String Name;
+    private List<String> Author;
     private String Location;
-    private String UserId;
 
-    public String getUserId() {
-        return UserId;
+
+    public List<String> getAuthor() {
+        return Author;
     }
 
-    public void setUserId(String userId) {
-        UserId = userId;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
+    public void setAuthor(List<String> author) {
+        Author = author;
     }
 
     public String getLocation() {

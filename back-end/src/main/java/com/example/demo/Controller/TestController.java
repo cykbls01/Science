@@ -7,6 +7,7 @@ import com.example.demo.Util.ResourcesUtil;
 import com.example.demo.Util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,8 @@ import java.nio.file.Path;
 public class TestController {
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private MongoTemplate mongoTemplate;
     @ResponseBody
     @RequestMapping("/test/login")
     public String Login()
@@ -29,7 +31,7 @@ public class TestController {
         User user=new User();
         user.setUsername("cyk");
         user.setPassword("cyk");
-        return UserUtil.Login(user,userRepository);
+        return UserUtil.Login(user,mongoTemplate);
     }
 
     @ResponseBody
@@ -39,7 +41,7 @@ public class TestController {
         User user=new User();
         user.setUsername("cyk");
         user.setPassword("cyk");
-        return UserUtil.Register(user,userRepository);
+        return UserUtil.Register(user,userRepository,mongoTemplate);
     }
     @ResponseBody
     @PostMapping("/upload")

@@ -1,22 +1,49 @@
 package com.example.demo.Entity;
 
 
+import java.util.List;
 
 public class Passage {
 
     private String Title;
-    private String Content;
+    private String Abstract;
+    private List<String> AuthorName;
+    private List<String> AuthorCompany;
+    private List<String> Keyword;
     private String Time;
-    private String Name;
     private String Location;
-    private String UserId;
 
-    public String getName() {
-        return Name;
+
+    public String getAbstract() {
+        return Abstract;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setAbstract(String anAbstract) {
+        Abstract = anAbstract;
+    }
+
+    public List<String> getAuthorName() {
+        return AuthorName;
+    }
+
+    public void setAuthorName(List<String> authorName) {
+        AuthorName = authorName;
+    }
+
+    public List<String> getAuthorCompany() {
+        return AuthorCompany;
+    }
+
+    public void setAuthorCompany(List<String> authorCompany) {
+        AuthorCompany = authorCompany;
+    }
+
+    public List<String> getKeyword() {
+        return Keyword;
+    }
+
+    public void setKeyword(List<String> keyword) {
+        Keyword = keyword;
     }
 
     public String getLocation() {
@@ -27,13 +54,7 @@ public class Passage {
         Location = location;
     }
 
-    public String getUserId() {
-        return UserId;
-    }
 
-    public void setUserId(String userId) {
-        UserId = userId;
-    }
 
     public String getTime() {
         return Time;
@@ -53,11 +74,5 @@ public class Passage {
         Title = title;
     }
 
-    public String getContent() {
-        return Content;
-    }
 
-    public void setContent(String content) {
-        Content = content;
-    }
 }

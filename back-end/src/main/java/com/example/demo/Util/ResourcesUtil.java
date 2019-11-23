@@ -26,7 +26,7 @@ public class ResourcesUtil {
                                       MultipartFile multipartFile, Project project)
     {
 
-        project.setName(multipartFile.getName());
+
         project.setLocation("Users/chenyikun/"+user.getId()+"/resources/");
         FileUtil.WriteFile(project.getLocation(),multipartFile);
         resources.setProject(project);
@@ -37,7 +37,7 @@ public class ResourcesUtil {
                                       MultipartFile multipartFile, Passage passage)
     {
 
-        passage.setName(multipartFile.getName());
+
         passage.setLocation("Users/chenyikun/"+user.getId()+"/resources/");
         FileUtil.WriteFile(passage.getLocation(),multipartFile);
         resources.setPassage(passage);
@@ -49,7 +49,7 @@ public class ResourcesUtil {
                                        MultipartFile multipartFile, Patent patent)
     {
 
-        patent.setName(multipartFile.getName());
+
         patent.setLocation("Users/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
         FileUtil.WriteFile(patent.getLocation(),multipartFile);
         resources.setPatent(patent);
