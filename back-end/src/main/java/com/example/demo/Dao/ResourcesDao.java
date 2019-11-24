@@ -11,20 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResourcesDao {
-    public static List<Resources> FindByName(String name, ResourcesRepository resourcesRepository)
+    public static List<Resources> FindByTiTle(String name, MongoTemplate mongoTemplate)
     {
-        List<Resources> resourcesList=resourcesRepository.findAll();
 
-        List<Resources> resourcesList1=new ArrayList<Resources>();
-        for(int i=0;resourcesList.get(i)!=null;i++)
-        {
-            if(resourcesList.get(i).getTitle().contains(name))
-            {
-                resourcesList1.add(resourcesList.get(i));
-            }
-        }
-
-        return  resourcesList1;
+        Query query=new Query(Criteria.where("Title").regex(name));
+        List<Resources> resourcesList=mongoTemplate.find(query,Resources.class);
+        return  resourcesList;
 
     }
 

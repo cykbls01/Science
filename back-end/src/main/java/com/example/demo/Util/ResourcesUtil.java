@@ -3,6 +3,7 @@ package com.example.demo.Util;
 import com.example.demo.Dao.ResourcesDao;
 import com.example.demo.Entity.*;
 import com.example.demo.Repository.ResourcesRepository;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
@@ -27,8 +28,9 @@ public class ResourcesUtil {
     {
 
 
-        project.setLocation("Users/chenyikun/"+user.getId()+"/resources/");
+        project.setLocation("/usr/chenyikun/"+user.getId()+"/resources/");
         FileUtil.WriteFile(project.getLocation(),multipartFile);
+        project.setLocation("/usr/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
         resources.setProject(project);
 
         return resources;
@@ -38,8 +40,9 @@ public class ResourcesUtil {
     {
 
 
-        passage.setLocation("Users/chenyikun/"+user.getId()+"/resources/");
+        passage.setLocation("/usr/chenyikun/"+user.getId()+"/resources/");
         FileUtil.WriteFile(passage.getLocation(),multipartFile);
+        passage.setLocation("/usr/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
         resources.setPassage(passage);
 
         return resources;
@@ -50,8 +53,9 @@ public class ResourcesUtil {
     {
 
 
-        patent.setLocation("Users/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
+        patent.setLocation("/usr/chenyikun/"+user.getId()+"/resources/");
         FileUtil.WriteFile(patent.getLocation(),multipartFile);
+        patent.setLocation("/usr/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
         resources.setPatent(patent);
 
         return resources;
@@ -102,8 +106,8 @@ public class ResourcesUtil {
         return "success";
     }
 
-    public static List<Resources> SearchResources(String name,ResourcesRepository resourcesRepository) throws ParseException {
-        List<Resources> resourcesList= ResourcesDao.FindByName(name,resourcesRepository);
+    public static List<Resources> SearchResources(String name, MongoTemplate mongoTemplate) throws ParseException {
+        List<Resources> resourcesList= ResourcesDao.FindByTiTle(name,mongoTemplate);
         resourcesList=Time.sort(resourcesList);
 
 

@@ -82,10 +82,7 @@ public class UserUtil {
         }
         else
         {
-
             return "success";
-
-
         }
 
 
@@ -100,9 +97,6 @@ public class UserUtil {
         userRepository.save(user);
         FileUtil.WriteFile("/usr/chenyikun/"+user.getId()+"/image/"+file.getOriginalFilename(),file);
         return "success";
-
-
-
 
     }
 
