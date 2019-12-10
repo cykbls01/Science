@@ -12,93 +12,30 @@ import java.util.List;
 public class ResourcesUtil {
 
 
-
-    public static String AddResources(Resources resources, ResourcesRepository resourcesRepository)
+    public static String AddResources(Resources resources, Expert expert,ResourcesRepository resourcesRepository)
     {
 
         resources.setTime(Time.getTime());
         resourcesRepository.save(resources);
         return "success";
-
-
-
     }
-    public static Resources AddProject(User user, Resources resources,
-                                      MultipartFile multipartFile, Project project)
+
+    public static String AddResources(Resources resources, Expert expert,ResourcesRepository resourcesRepository,MultipartFile multipartFile)
     {
-
-
-        project.setLocation("/usr/chenyikun/"+user.getId()+"/resources/");
-        FileUtil.WriteFile(project.getLocation(),multipartFile);
-        project.setLocation("/usr/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
-        resources.setProject(project);
-
-        return resources;
+        FileUtil.WriteFile("/usr/chenyikun/"+expert.getId()+"/",multipartFile);
+        resources.setTime(Time.getTime());
+        resources.setLocation("/usr/chenyikun/"+expert.getId()+"/"+multipartFile.getOriginalFilename());
+        resourcesRepository.save(resources);
+        return "success";
     }
-    public static Resources AddPassage(User user, Resources resources,
-                                      MultipartFile multipartFile, Passage passage)
-    {
-
-
-        passage.setLocation("/usr/chenyikun/"+user.getId()+"/resources/");
-        FileUtil.WriteFile(passage.getLocation(),multipartFile);
-        passage.setLocation("/usr/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
-        resources.setPassage(passage);
-
-        return resources;
-    }
-
-    public static Resources AddPatent(User user, Resources resources,
-                                       MultipartFile multipartFile, Patent patent)
-    {
-
-
-        patent.setLocation("/usr/chenyikun/"+user.getId()+"/resources/");
-        FileUtil.WriteFile(patent.getLocation(),multipartFile);
-        patent.setLocation("/usr/chenyikun/"+user.getId()+"/resources/"+multipartFile.getOriginalFilename());
-        resources.setPatent(patent);
-
-        return resources;
-    }
-
     public static String DeleteResources(Resources resources,ResourcesRepository resourcesRepository)
     {
         resources=resourcesRepository.findById(resources.getId()).get();
-        if(resources.getProject()!=null)
-        {
-            FileUtil.DeleteFile(resources.getProject().getLocation());
-        }
-        if(resources.getPassage()!=null)
-        {
-            FileUtil.DeleteFile(resources.getPassage().getLocation());
-        }
-        if(resources.getPatent()!=null)
-        {
-            FileUtil.DeleteFile(resources.getPatent().getLocation());
-        }
+        if(resources.getLocation()!=null)
+        FileUtil.DeleteFile(resources.getLocation());
         resourcesRepository.delete(resources);
         return "success";
     }
-
-    public static Resources DeleteProject(Resources resources)
-    {
-        FileUtil.DeleteFile(resources.getProject().getLocation());
-        resources.setProject(null);
-        return resources;
-    }
-    public static Resources DeletePassage(Resources resources)
-    {
-        FileUtil.DeleteFile(resources.getPassage().getLocation());
-        resources.setPassage(null);
-        return resources;
-    }
-    public static Resources DeletePatent(Resources resources)
-    {
-        FileUtil.DeleteFile(resources.getPatent().getLocation());
-        resources.setPatent(null);
-        return resources;
-    }
-
     public static String ModifyResources(Resources resources,ResourcesRepository resourcesRepository)
     {
         resources.setTime(Time.getTime());
@@ -109,13 +46,7 @@ public class ResourcesUtil {
     public static List<Resources> SearchResources(String name, MongoTemplate mongoTemplate) throws ParseException {
         List<Resources> resourcesList= ResourcesDao.FindByTiTle(name,mongoTemplate);
         resourcesList=Time.sort(resourcesList);
-
-
         return resourcesList;
-
-
-
-
     }
 
 
