@@ -1,6 +1,9 @@
 package com.example.demo.Entity;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "Resources")
 public class Resources {
@@ -8,51 +11,16 @@ public class Resources {
     private String Id;
     private String UserId;
     private String Time;
-    private Project Project;
-    private Passage Passage;
-    private Patent Patent;
+    @Indexed
     private String Title;
-    private String Detail;
-
-    public String getDetail() {
-        return Detail;
-    }
-
-    public void setDetail(String detail) {
-        Detail = detail;
-    }
-
-    public String getTitle() {
-        return Title;
-    }
-
-    public void setTitle(String title) {
-        Title = title;
-    }
-
-    public com.example.demo.Entity.Project getProject() {
-        return Project;
-    }
-
-    public void setProject(com.example.demo.Entity.Project project) {
-        Project = project;
-    }
-
-    public com.example.demo.Entity.Passage getPassage() {
-        return Passage;
-    }
-
-    public void setPassage(com.example.demo.Entity.Passage passage) {
-        Passage = passage;
-    }
-
-    public com.example.demo.Entity.Patent getPatent() {
-        return Patent;
-    }
-
-    public void setPatent(com.example.demo.Entity.Patent patent) {
-        Patent = patent;
-    }
+    @Indexed
+    private String Abstract;
+    private List<String> AuthorName;
+    private List<String> AuthorCompany;
+    @Indexed
+    private List<String> Keyword;
+    private String Type;
+    private String Location;
 
     public String getId() {
         return Id;
@@ -76,5 +44,63 @@ public class Resources {
 
     public void setTime(String time) {
         Time = time;
+    }
+
+
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public String getAbstract() {
+        return Abstract;
+    }
+
+    public void setAbstract(String anAbstract) {
+        Abstract = anAbstract;
+    }
+
+    public List<String> getAuthorName() {
+        return AuthorName;
+    }
+
+    public void setAuthorName(List<String> authorName) {
+        AuthorName = authorName;
+    }
+
+    public List<String> getAuthorCompany() {
+        return AuthorCompany;
+    }
+
+    public void setAuthorCompany(List<String> authorCompany) {
+        AuthorCompany = authorCompany;
+    }
+
+    public List<String> getKeyword() {
+        return Keyword;
+    }
+
+    public void setKeyword(List<String> keyword) {
+        Keyword = keyword;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
     }
 }
