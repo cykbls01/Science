@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Follow {
     @Id
     private String id;
-    private String FollowId;
-    private String FanId;
+    private String followId;
+    private String fanId;
 
     public String getId() {
         return id;
@@ -18,18 +18,18 @@ public class Follow {
     }
 
     public String getFollowId() {
-        return FollowId;
+        return followId;
     }
 
     public void setFollowId(String followId) {
-        FollowId = followId;
+        followId = followId;
     }
 
     public String getFanId() {
-        return FanId;
+        return fanId;
     }
 
     public void setFanId(String fanId) {
-        FanId = fanId;
+        fanId = fanId;
     }
 }
