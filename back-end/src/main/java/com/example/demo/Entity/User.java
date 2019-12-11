@@ -15,7 +15,7 @@ public class User {
 
     private String Type;
 
-    private Expert ExpertId;
+    private String ExpertId;
 
     private String ImageName;
 
@@ -27,11 +27,11 @@ public class User {
         ImageName = imageName;
     }
 
-    public Expert getExpertId() {
+    public String getExpertId() {
         return ExpertId;
     }
 
-    public void setExpertId(Expert expertId) {
+    public void setExpertId(String expertId) {
         ExpertId = expertId;
     }
 

@@ -9,6 +9,7 @@ public class Check {
 
     private Apply Apply;
 
+    //PASS or REFUSE
     private String Status;
 
     private String Time;

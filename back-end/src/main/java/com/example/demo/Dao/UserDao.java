@@ -11,8 +11,6 @@ import java.util.List;
 
 public class UserDao {
 
-
-
     public static User FindUserByName(String name, MongoTemplate mongoTemplate)
     {
         Query query=new Query(Criteria.where("Username").is(name));
@@ -24,11 +22,5 @@ public class UserDao {
         Query query=new Query(Criteria.where("Email").is(email));
         return mongoTemplate.findOne(query,User.class);
     }
-
-
-
-
-
-
 
 }
