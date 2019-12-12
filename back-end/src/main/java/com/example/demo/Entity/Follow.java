@@ -22,7 +22,7 @@ public class Follow {
     }
 
     public void setFollowId(String followId) {
-        followId = followId;
+        this.followId = followId;
     }
 
     public String getFanId() {
@@ -30,6 +30,6 @@ public class Follow {
     }
 
     public void setFanId(String fanId) {
-        fanId = fanId;
+        this.fanId = fanId;
     }
 }

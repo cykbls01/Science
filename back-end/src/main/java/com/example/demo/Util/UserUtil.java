@@ -16,10 +16,12 @@ public class UserUtil {
 
         if(UserDao.FindUserByName(user.getUsername(),mongoTemplate)!=null)
         {
+
             return "error";
         }
         else if(UserDao.FindUserByEmail(user.getEmail(),mongoTemplate)!=null)
         {
+
             return "error";
         }
         else
