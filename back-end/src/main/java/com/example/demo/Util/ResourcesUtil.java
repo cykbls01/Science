@@ -12,7 +12,7 @@ import java.util.List;
 public class ResourcesUtil {
 
 
-    public static String AddResources(Resources resources, Expert expert,ResourcesRepository resourcesRepository)
+    public static String AddResources(Resources resources, ResourcesRepository resourcesRepository)
     {
 
         resources.setTime(Time.getTime());

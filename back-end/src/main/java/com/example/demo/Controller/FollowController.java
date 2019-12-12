@@ -30,7 +30,6 @@ public class FollowController {
        FollowUtil.AddFollow("5df1f7ade1e04508da4a3b98",user.getId(),followRepository);
        return "success";
 
-
    }
 
     @ResponseBody
