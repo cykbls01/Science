@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class RespositoryController {
@@ -48,9 +49,9 @@ public class RespositoryController {
     public String DeleteResources(HttpSession session)
     {
         Resources resources=new Resources();
-        resources.setId("5df1fe2b5d34e81057952847");
-        System.out.println(resources.getId());
-        resources=resourcesRepository.findById(resources.getId()).get();
+        resources.setid("5df20d061f959f5c42329923");
+
+        resources=resourcesRepository.findById(resources.getid()).get();
 
         User user=(User)session.getAttribute("user");
         if(resources.getUserId().equals(user.getId())==false)

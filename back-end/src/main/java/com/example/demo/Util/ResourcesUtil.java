@@ -30,7 +30,7 @@ public class ResourcesUtil {
     }
     public static String DeleteResources(Resources resources,ResourcesRepository resourcesRepository)
     {
-        resources=resourcesRepository.findById(resources.getId()).get();
+        resources=resourcesRepository.findById(resources.getid()).get();
         if(resources.getLocation()!=null)
         FileUtil.DeleteFile(resources.getLocation());
         resourcesRepository.delete(resources);

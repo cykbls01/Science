@@ -8,7 +8,7 @@ import java.util.List;
 @Document(collection = "Resources")
 public class Resources {
     @Id
-    private String Id;
+    private String id;
     private String UserId;
     private String Time;
     @Indexed
@@ -22,12 +22,12 @@ public class Resources {
     private String Type;
     private String Location;
 
-    public String getId() {
-        return Id;
+    public String getid() {
+        return id;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setid(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
