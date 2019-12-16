@@ -41,14 +41,10 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/user/login")
-    //@PostMapping("/user/login")
-    //public String Login(@RequestBody User user,HttpSession session)
-    public String Login(HttpSession session)
+    @PostMapping("/user/login")
+    public String Login(@RequestBody User user,HttpSession session)
     {
-        User user=new User();
-        user.setUsername("cyk");
-        user.setPassword("1234");
+
         if(UserUtil.Login(user,mongoTemplate).equals("success"))
         {
             user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
@@ -62,15 +58,9 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/user/register")
-    //@PostMapping("/user/register")
-    //public String Register(@RequestBody User user,HttpSession session)
-    public String Register(HttpSession session)
+    @PostMapping("/user/register")
+    public String Register(@RequestBody User user,HttpSession session)
     {
-        User user=new User();
-        user.setUsername("cyk111");
-        user.setPassword("1234");
-        user.setEmail("1234@qq.com");
 
         if(UserUtil.Register(user,userRepository,mongoTemplate).equals("success"))
         {

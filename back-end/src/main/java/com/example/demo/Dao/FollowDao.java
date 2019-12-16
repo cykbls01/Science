@@ -36,7 +36,7 @@ public class FollowDao {
         List<Follow> followList = mongoTemplate.find(query,Follow.class);
         List<Expert> expertList = null;
         for(int i = 0; i < followList.size(); i++){
-            Query query1 = new Query(Criteria.where("Id").is(followList.get(i).getFollowId()));
+            Query query1 = new Query(Criteria.where("id").is(followList.get(i).getFollowId()));
             expertList.add(mongoTemplate.findOne(query1,Expert.class));
         }
         return expertList;

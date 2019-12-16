@@ -7,7 +7,7 @@ import java.util.List;
 @Document(collection = "Expert")
 public class Expert {
     @Id
-    private String Id;
+    private String id;
 
     private String RealName;
 
@@ -30,11 +30,11 @@ public class Expert {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getCompany() {
