@@ -38,6 +38,7 @@ public class ZhongzhuanController {
         {
             Expert expert=new Expert();
             expert.setRealName(zhongZhuans.get(i).getName());
+            expert.setResourcesNumber(zhongZhuans.get(i).getPapers().size());
             expert=expertRepository.save(expert);
 
             for(int j=0;j<zhongZhuans.get(i).getPapers().size();j++)

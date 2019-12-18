@@ -18,6 +18,15 @@ public class Expert {
     private String Profile;
 
     private String Education;
+    private int ResourcesNumber;
+
+    public int getResourcesNumber() {
+        return ResourcesNumber;
+    }
+
+    public void setResourcesNumber(int resourcesNumber) {
+        ResourcesNumber = resourcesNumber;
+    }
 
     private List<String> Skills;
 
