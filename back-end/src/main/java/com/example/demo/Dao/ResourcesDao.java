@@ -24,6 +24,17 @@ public class ResourcesDao {
         return  resourcesList;
     }
 
+    public static List<Resources> FindByUserid(String name, MongoTemplate mongoTemplate)
+    {
+        Query query=new Query();
+        query.addCriteria(new Criteria().orOperator(
+                Criteria.where("UserId").regex(name)
+        ));
+        List<Resources> resourcesList=mongoTemplate.find(query,Resources.class);
+        return  resourcesList;
+    }
+
+
     public static List<Expert> FindByName(String name, MongoTemplate mongoTemplate)
     {
         Query query=new Query();

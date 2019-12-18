@@ -10,7 +10,7 @@ import java.util.List;
 public class Time {
 
     public static String getTime(){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
         return df.format(new Date());
 
 
@@ -20,7 +20,7 @@ public class Time {
     public static boolean compare(String time1,String time2) throws ParseException {
 
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
         Date date1 = format.parse(time1);
         Date date2 = format.parse(time2);
 
