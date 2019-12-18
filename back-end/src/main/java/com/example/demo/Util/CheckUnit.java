@@ -1,15 +1,20 @@
 package com.example.demo.Util;
 
+import com.example.demo.Dao.ApplyDao;
 import com.example.demo.Dao.CheckDao;
+import com.example.demo.Dao.FollowDao;
 import com.example.demo.Entity.Apply;
 import com.example.demo.Entity.Check;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.CheckRepository;
+import com.example.demo.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 public class CheckUnit {
     //pass
-    public static void passCheck(Apply apply, String expertId, CheckRepository checkRepository){
+
+    public static void passCheck(Apply apply, String expertId, CheckRepository checkRepository,MongoTemplate mongoTemplate,UserRepository userRepository){
         //add check
         Time time = new Time();
         Check check = new Check();
@@ -18,8 +23,9 @@ public class CheckUnit {
         check.setTime(time.toString());
         checkRepository.save(check);
         //connect user with expert
-        User user = new User();
+        User user = ApplyDao.findUserByApplyId(apply.getId(),mongoTemplate);
         user.setExpertId(expertId);
+        userRepository.save(user);
     }
 
     //refuse

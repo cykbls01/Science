@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Message")
 public class Message {
     @Id
-    private String Id;
+    private String id;
     private String SendId;
     private String GetId;
     private String Theme;
@@ -21,11 +21,11 @@ public class Message {
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getSendId() {

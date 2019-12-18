@@ -5,49 +5,49 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Comment")
 public class Comment {
     @Id
-    private String Id;
+    private String id;
     private String Content;
     private String UserId;
     private String ResourcesId;
     private String Time;
 
     public String getTime() {
-        return Time;
+        return this.Time;
     }
 
     public void setTime(String time) {
-        Time = time;
+        this.Time = time;
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getContent() {
-        return Content;
+        return this.Content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.Content = content;
     }
 
     public String getUserId() {
-        return UserId;
+        return this.UserId;
     }
 
     public void setUserId(String userId) {
-        UserId = userId;
+        this.UserId = userId;
     }
 
     public String getResourcesId() {
-        return ResourcesId;
+        return this.ResourcesId;
     }
 
     public void setResourcesId(String resourcesId) {
-        ResourcesId = resourcesId;
+        this.ResourcesId = resourcesId;
     }
 }

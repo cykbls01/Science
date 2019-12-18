@@ -6,22 +6,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Manager")
 public class Manager {
     @Id
-    private String Id;
+    private String id;
 
     private String UserName;
 
     private String Password;
 
 
-
-
-
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getUsername() {

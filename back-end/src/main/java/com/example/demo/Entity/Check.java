@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Check")
 public class Check {
     @Id
-    private String Id;
+    private String id;
 
     private Apply Apply;
 
@@ -15,34 +15,34 @@ public class Check {
     private String Time;
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public Apply getApply() {
-        return Apply;
+        return this.Apply;
     }
 
     public void setApply(Apply apply) {
-        Apply = apply;
+        this.Apply = apply;
     }
 
     public String getStatus() {
-        return Status;
+        return this.Status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.Status = status;
     }
 
     public String getTime() {
-        return Time;
+        return this.Time;
     }
 
     public void setTime(String time) {
-        Time = time;
+        this.Time = time;
     }
 }

@@ -5,31 +5,31 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Collect")
 public class Collect {
     @Id
-    private String Id;
+    private String id;
     private String UserId;
     private String ResourcesId;
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getUserId() {
-        return UserId;
+        return this.UserId;
     }
 
     public void setUserId(String userId) {
-        UserId = userId;
+        this.UserId = userId;
     }
 
     public String getResourcesId() {
-        return ResourcesId;
+        return this.ResourcesId;
     }
 
     public void setResourcesId(String resourcesId) {
-        ResourcesId = resourcesId;
+        this.ResourcesId = resourcesId;
     }
 }
