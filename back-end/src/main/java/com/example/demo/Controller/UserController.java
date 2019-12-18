@@ -40,7 +40,7 @@ public class UserController {
         return byt;
     }
 
-    @ResponseBody
+
     @PostMapping("/user/login")
     public String Login(@RequestBody User user,HttpSession session)
     {
@@ -57,7 +57,7 @@ public class UserController {
         }
     }
 
-    @ResponseBody
+
     @PostMapping("/user/register")
     public String Register(@RequestBody User user,HttpSession session)
     {
@@ -70,12 +70,12 @@ public class UserController {
         }
         else
         {
-            return "error123";
+            return "error";
         }
     }
-    @ResponseBody
+
     @PostMapping("/user/findpwd")
-    public String Findpwd(@RequestBody String email,HttpSession session)
+    public String Findpwd(@RequestParam(value = "email")String email,HttpSession session)
     {
         if(UserUtil.FindPassword(email,mongoTemplate).equals("success"))
         {
@@ -93,9 +93,9 @@ public class UserController {
         }
     }
 
-    @ResponseBody
+
     @PostMapping("/user/modifypwd")
-    public String Modifypwd(@RequestBody String yanzhengma,@RequestBody String pwd,HttpSession session) {
+    public String Modifypwd(@RequestParam(value = "yanzhengma")String yanzhengma,@RequestParam(value = "newpassword")String pwd,HttpSession session) {
         String VCode = (String) session.getAttribute("yanzhengma");
         User user = (User) session.getAttribute("user");
         if (VCode.equals(yanzhengma))

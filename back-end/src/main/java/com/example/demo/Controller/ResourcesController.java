@@ -11,10 +11,7 @@ import com.example.demo.Util.ResourcesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -32,11 +29,10 @@ public class ResourcesController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @ResponseBody
+
     @PostMapping("/resources/add")
     public String AddResources(@RequestBody Resources resources, HttpSession session)
     {
-
 
         User user=(User)session.getAttribute("user");
         resources.setUserId(user.getId());
@@ -46,7 +42,7 @@ public class ResourcesController {
 
     }
 
-    @ResponseBody
+
     @PostMapping("/resources/delete")
     public String DeleteResources(@RequestBody Resources resources, HttpSession session)
     {
@@ -60,20 +56,28 @@ public class ResourcesController {
 
     }
 
-    @ResponseBody
+
     @PostMapping("/resources/find")
-    public List<Resources> FindResources(@RequestBody String name, HttpSession session) throws ParseException {
+    public List<Resources> FindResources(@RequestParam(value = "name") String name, HttpSession session) throws ParseException {
 
         List<Resources> resourcesList=ResourcesUtil.SearchResources(name,mongoTemplate);
         return resourcesList;
 
     }
-    @ResponseBody
+
     @PostMapping("/expert/find")
-    public List<Expert> FindExpert(@RequestBody String name, HttpSession session) throws ParseException {
+    public List<Expert> FindExpert(@RequestParam(value = "name") String name,HttpSession session) throws ParseException {
 
         List<Expert> expertList= ResourcesUtil.SearchExpert(name, mongoTemplate);
         return expertList;
+
+    }
+
+    @GetMapping("/resources/recommand")
+    public List<Resources> RecommandResources() throws ParseException {
+
+        List<Resources> resourcesList=ResourcesUtil.SearchResources("computer",mongoTemplate);
+        return resourcesList;
 
     }
 
