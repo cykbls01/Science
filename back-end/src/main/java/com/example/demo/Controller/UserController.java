@@ -116,6 +116,12 @@ public class UserController {
         return userRepository.findById(id).get();
     }
 
+    @PostMapping("/user/findbyname")
+    public User FindbyName(@RequestParam(value = "name")String name)
+    {
+        return UserDao.FindUserByName(name,mongoTemplate);
+    }
+
 
     @PostMapping("/user/modifypwd")
     public String Modifypwd(@RequestParam(value = "yanzhengma")String yanzhengma,@RequestParam(value = "newpassword")String pwd,HttpSession session) {

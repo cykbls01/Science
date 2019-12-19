@@ -93,5 +93,29 @@ public class ZhongzhuanController {
 
     }
 
+    @ResponseBody
+    @GetMapping("/zhongzhuan2")
+    public String zhongzhuan2()
+    {
+        List<Resources> resourcesList=resourcesRepository.findAll();
+        for(int i=0;i<resourcesList.size();i++)
+        {
+            Resources resources=resourcesList.get(i);
+            Expert expert=expertRepository.findById(resources.getUserId()).get();
+            resources.setAuthorName(new ArrayList<String>());
+            resources.setAuthorCompany(new ArrayList<String>());
+            if(expert.getRealName()!=null)
+            resources.getAuthorName().add(expert.getRealName());
+            if(expert.getCompany()!=null)
+                resources.getAuthorCompany().add(expert.getCompany());
+            resourcesRepository.save(resources);
+
+        }
+
+
+        return "success";
+
+    }
+
 }
 
