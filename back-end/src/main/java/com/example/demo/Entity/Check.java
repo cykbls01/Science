@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Check")
 public class Check {
     @Id
-    private String Id;
+    private String id;
 
     private Apply Apply;
 
@@ -15,11 +15,11 @@ public class Check {
     private String Time;
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public Apply getApply() {

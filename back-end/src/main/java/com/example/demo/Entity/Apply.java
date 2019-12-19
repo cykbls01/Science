@@ -5,15 +5,25 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Apply")
 public class Apply {
     @Id
-    private String Id;
+    private String id;
 
     private String Time;
 
-    private String UserId;
+    private String UserId;//用于关联用户
 
-    private Expert Content;
+    private Expert Content;//用于关联专家数据
 
     private String Status;
+
+    private String Reason;
+
+    public String getReason() {
+        return Reason;
+    }
+
+    public void setReason(String reason) {
+        Reason = reason;
+    }
 
     public String getStatus() {
         return Status;
@@ -24,11 +34,11 @@ public class Apply {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTime() {
