@@ -18,7 +18,7 @@ public class Expert {
     private String Profile;
 
     private String Education;
-    private int ResourcesNumber;
+    private int ResourcesNumber=1;
 
     public int getResourcesNumber() {
         return ResourcesNumber;

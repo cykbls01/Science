@@ -19,6 +19,10 @@ public class Time {
 
     public static boolean compare(String time1,String time2) throws ParseException {
 
+        if(time1.length()>4)
+            time1.substring(0,4);
+        if(time2.length()>4)
+            time2.substring(0,4);
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy");
         Date date1 = format.parse(time1);
