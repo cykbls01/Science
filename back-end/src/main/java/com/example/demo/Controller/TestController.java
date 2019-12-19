@@ -19,6 +19,7 @@ import java.nio.file.Path;
 
 
 @Controller
+@RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class TestController {
     @Autowired
     private UserRepository userRepository;

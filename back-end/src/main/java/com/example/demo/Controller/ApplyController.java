@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class ApplyController {
     @Autowired
     private ApplyRepository applyRepository;

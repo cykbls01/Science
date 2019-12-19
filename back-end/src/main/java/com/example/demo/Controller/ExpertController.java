@@ -9,15 +9,13 @@ import com.example.demo.Util.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.List;
 
 @Controller
+@RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class ExpertController {
     @Autowired
     ExpertRepository expertRepository;

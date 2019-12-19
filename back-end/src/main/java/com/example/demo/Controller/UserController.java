@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class UserController {
     @Autowired
     private UserRepository userRepository;

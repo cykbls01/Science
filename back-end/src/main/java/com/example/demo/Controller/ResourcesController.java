@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class ResourcesController {
     @Autowired
     private ResourcesRepository resourcesRepository;
