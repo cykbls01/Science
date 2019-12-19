@@ -18,7 +18,16 @@ public class Expert {
     private String Profile;
 
     private String Education;
+    private int FollowNumber;
     private int ResourcesNumber=1;
+
+    public int getFollowNumber() {
+        return FollowNumber;
+    }
+
+    public void setFollowNumber(int followNumber) {
+        FollowNumber = followNumber;
+    }
 
     public int getResourcesNumber() {
         return ResourcesNumber;

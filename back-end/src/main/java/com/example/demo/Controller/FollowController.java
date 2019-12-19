@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entity.Expert;
 import com.example.demo.Entity.User;
+import com.example.demo.Repository.ExpertRepository;
 import com.example.demo.Repository.FollowRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Util.FollowUtil;
@@ -20,31 +21,39 @@ public class FollowController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private ExpertRepository expertRepository;
+    @Autowired
     private FollowRepository followRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
 
-   @ResponseBody
+
    @PostMapping("/follow/add")
-   public String AddFollow(@RequestBody String id,HttpSession session)
+   public String AddFollow(@RequestParam(value = "follow") String id,HttpSession session)
    {
        User user=(User)session.getAttribute("user");
+       User user1=userRepository.findById(id).get();
+       Expert expert=expertRepository.findById(user.getExpertId()).get();
+       expert.setFollowNumber(expert.getFollowNumber()+1);
        FollowUtil.AddFollow(id,user.getId(),followRepository);
        return "success";
 
    }
 
-    @ResponseBody
+
     @PostMapping("/follow/delete")
-    public String DeleteFollow(@RequestBody String id,HttpSession session)
+    public String DeleteFollow(@RequestParam(value = "follow") String id,HttpSession session)
     {
         User user=(User)session.getAttribute("user");
+        User user1=userRepository.findById(id).get();
+        Expert expert=expertRepository.findById(user.getExpertId()).get();
+        expert.setFollowNumber(expert.getFollowNumber()-1);
         FollowUtil.deleteFollow(id,user.getId(),mongoTemplate,followRepository);
         return "success";
     }
 
 
-    @ResponseBody
+
     @GetMapping("/follow/getlist")
     public List<Expert> GetFollowList(HttpSession session)
     {
@@ -52,5 +61,8 @@ public class FollowController {
         List<Expert> expertList=FollowUtil.seeFollowList(user.getId(),mongoTemplate);
         return expertList;
     }
+
+
+
 
 }
