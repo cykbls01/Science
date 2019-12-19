@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class ExpertController {
     @Autowired

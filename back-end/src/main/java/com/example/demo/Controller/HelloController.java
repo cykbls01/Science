@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
+@RestController
 @RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class HelloController {
     @Autowired

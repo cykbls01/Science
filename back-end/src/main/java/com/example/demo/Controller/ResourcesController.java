@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class ResourcesController {
     @Autowired
