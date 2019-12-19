@@ -110,6 +110,12 @@ public class UserController {
         }
     }
 
+    @PostMapping("/user/findbyid")
+    public User FindbyId(@RequestParam(value = "id")String id)
+    {
+        return userRepository.findById(id).get();
+    }
+
 
     @PostMapping("/user/modifypwd")
     public String Modifypwd(@RequestParam(value = "yanzhengma")String yanzhengma,@RequestParam(value = "newpassword")String pwd,HttpSession session) {

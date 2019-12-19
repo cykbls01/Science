@@ -9,6 +9,34 @@ public class User {
 
     private String Username;
 
+    private String Sex;
+    private String Age;
+    private String Content;
+
+    public String getSex() {
+        return Sex;
+    }
+
+    public void setSex(String sex) {
+        Sex = sex;
+    }
+
+    public String getAge() {
+        return Age;
+    }
+
+    public void setAge(String age) {
+        Age = age;
+    }
+
+    public String getContent() {
+        return Content;
+    }
+
+    public void setContent(String content) {
+        Content = content;
+    }
+
     private String Password;
 
     private String Email;
