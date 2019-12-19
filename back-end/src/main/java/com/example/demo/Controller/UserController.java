@@ -75,6 +75,22 @@ public class UserController {
         }
     }
 
+    @PostMapping("/user/modify")
+    public String ModifyUser(@RequestBody User user,HttpSession session)
+    {
+
+        if(UserUtil.ModifyUser(user,userRepository,mongoTemplate).equals("success"))
+        {
+            user=userRepository.findById(user.getId()).get();
+            session.setAttribute("user",user);
+            return "success";
+        }
+        else
+        {
+            return "error";
+        }
+    }
+
     @PostMapping("/user/findpwd")
     public String Findpwd(@RequestParam(value = "email")String email,HttpSession session)
     {

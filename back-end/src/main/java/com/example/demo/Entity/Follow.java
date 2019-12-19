@@ -8,6 +8,24 @@ public class Follow {
     private String id;
     private String followId;
     private String fanId;
+    private String followname;
+    private String fanname;
+
+    public String getFollowname() {
+        return followname;
+    }
+
+    public void setFollowname(String followname) {
+        this.followname = followname;
+    }
+
+    public String getFanname() {
+        return fanname;
+    }
+
+    public void setFanname(String fanname) {
+        this.fanname = fanname;
+    }
 
     public String getId() {
         return id;
