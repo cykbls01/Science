@@ -66,6 +66,14 @@ public class ResourcesController {
 
     }
 
+    @PostMapping("/expert/findById")
+    public Resources FindById(@RequestParam(value = "id") String id,HttpSession session) throws ParseException {
+
+
+        return resourcesRepository.findById(id).get();
+
+    }
+
     @PostMapping("/expert/find")
     public List<Expert> FindExpert(@RequestParam(value = "name") String name,HttpSession session) throws ParseException {
 
