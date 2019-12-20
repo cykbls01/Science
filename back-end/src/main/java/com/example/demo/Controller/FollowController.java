@@ -34,11 +34,12 @@ public class FollowController {
 
 
    @PostMapping("/follow/add")
-   public String AddFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
+   public String AddFollow(@RequestParam(value = "follow") String fid,@RequestParam(value = "certificateId")String userid)
    {
 
-       Query query=new Query(Criteria.where("RealName").is(name));
-       Expert expert=mongoTemplate.findOne(query, Expert.class);
+       //Query query=new Query(Criteria.where("RealName").is(name));
+       //Expert expert=mongoTemplate.findOne(query, Expert.class);
+       Expert expert=expertRepository.findById(fid).get();
        User user=userRepository.findById(userid).get();
        expert.setFollowNumber(expert.getFollowNumber()+1);
        expertRepository.save(expert);
@@ -54,12 +55,12 @@ public class FollowController {
 
 
     @PostMapping("/follow/delete")
-    public String DeleteFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
+    public String DeleteFollow(@RequestParam(value = "follow") String fid,@RequestParam(value = "certificateId")String userid)
     {
         User user=userRepository.findById(userid).get();
-        Query query=new Query(Criteria.where("RealName").is(name));
-        Expert expert=mongoTemplate.findOne(query, Expert.class);
-
+        //Query query=new Query(Criteria.where("RealName").is(name));
+        //Expert expert=mongoTemplate.findOne(query, Expert.class);
+        Expert expert=expertRepository.findById(fid).get();
         expert.setFollowNumber(expert.getFollowNumber()-1);
         expertRepository.save(expert);
         FollowUtil.deleteFollow(expert.getId(),user.getId(),mongoTemplate,followRepository);
