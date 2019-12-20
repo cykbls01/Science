@@ -27,13 +27,13 @@ public class ApplyController {
 private MongoTemplate mongoTemplate;
 
     @PostMapping("/apply/add")
-    public String AddApply(@RequestBody Expert expert,@RequestParam(value = "certificateId")String userid)
+    public String AddApply(@RequestBody Expert expert)
     {
         Apply apply=new Apply();
         apply.setContent(expert);
         apply.setTime(Time.getTime());
 
-        apply.setUserId(userid);
+        apply.setUserId(expert.getCertificateId());
         apply.setStatus("check");
         applyRepository.save(apply);
         return "success";

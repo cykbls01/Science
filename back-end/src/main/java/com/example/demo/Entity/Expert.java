@@ -20,6 +20,15 @@ public class Expert {
     private String Education;
     private int FollowNumber;
     private int ResourcesNumber=1;
+    private String certificateId;
+
+    public String getCertificateId() {
+        return certificateId;
+    }
+
+    public void setCertificateId(String certificateId) {
+        this.certificateId = certificateId;
+    }
 
     public int getFollowNumber() {
         return FollowNumber;

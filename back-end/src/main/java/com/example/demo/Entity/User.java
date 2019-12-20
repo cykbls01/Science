@@ -44,6 +44,15 @@ public class User {
     private String Type;
 
     private String ExpertId;
+    private String certificateId;
+
+    public String getCertificateId() {
+        return certificateId;
+    }
+
+    public void setCertificateId(String certificateId) {
+        this.certificateId = certificateId;
+    }
 
     private String ImageName;
 

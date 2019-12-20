@@ -35,11 +35,11 @@ public class ResourcesController {
 
 
     @PostMapping("/resources/add")
-    public String AddResources(@RequestBody Resources resources,@RequestParam(value = "certificateId")String userid)
+    public String AddResources(@RequestBody Resources resources)
     {
 
 
-        resources.setUserId(userid);
+        resources.setUserId(resources.getCertificateId());
         ResourcesUtil.AddResources(resources,resourcesRepository);
         return "success";
 
@@ -48,11 +48,11 @@ public class ResourcesController {
 
 
     @PostMapping("/resources/delete")
-    public String DeleteResources(@RequestBody Resources resources,@RequestParam(value = "certificateId")String userid)
+    public String DeleteResources(@RequestBody Resources resources)
     {
 
         resources=resourcesRepository.findById(resources.getid()).get();
-        if(resources.getUserId().equals(userid)==false)
+        if(resources.getUserId().equals(resources.getCertificateId())==false)
             return "error";
         ResourcesUtil.DeleteResources(resources,resourcesRepository);
         return "success";

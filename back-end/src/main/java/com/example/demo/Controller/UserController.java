@@ -33,7 +33,12 @@ public class UserController {
         UserUtil.UploadImage(user,file,userRepository);
         return "success";
     }
-
+    @PostMapping("/user/upload1")
+    public String Upload1(@RequestParam("file") MultipartFile file,@RequestParam(value = "certificateId")String userid) {
+        User user=userRepository.findById(userid).get();
+        UserUtil.UploadImage(user,file,userRepository);
+        return "success";
+    }
 
 
 
@@ -80,7 +85,7 @@ public class UserController {
     }
 
     @PostMapping("/user/modify")
-    public String ModifyUser(@RequestBody User user,@RequestParam(value = "certificateId")String userid)
+    public String ModifyUser(@RequestBody User user)
     {
 
         if(UserUtil.ModifyUser(user,userRepository,mongoTemplate).equals("success"))

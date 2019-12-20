@@ -21,6 +21,23 @@ public class Resources {
     private List<String> Keyword;
     private String Type;
     private String Location;
+    private String certificateId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCertificateId() {
+        return certificateId;
+    }
+
+    public void setCertificateId(String certificateId) {
+        this.certificateId = certificateId;
+    }
 
     public String getid() {
         return id;

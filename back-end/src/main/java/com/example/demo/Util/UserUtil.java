@@ -94,7 +94,7 @@ public class UserUtil {
     public static String UploadImage(User user, MultipartFile file,UserRepository userRepository)
     {
         user=userRepository.findById(user.getId()).get();
-        FileUtil.DeleteFile("/usr/chenyikun/"+user.getId()+"/image/"+user.getImageName());
+        //FileUtil.DeleteFile("/usr/chenyikun/"+user.getId()+"/image/"+user.getImageName());
         user.setImageName(file.getOriginalFilename());
         userRepository.save(user);
         FileUtil.WriteFile("/usr/chenyikun/"+user.getId()+"/image/"+file.getOriginalFilename(),file);

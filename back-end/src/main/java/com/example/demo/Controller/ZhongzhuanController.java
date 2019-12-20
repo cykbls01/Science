@@ -127,14 +127,16 @@ public class ZhongzhuanController {
     @GetMapping("/zhongzhuan3")
     public String zhongzhuan3()
     {
-        List<Resources> resourcesList=resourcesRepository.findAll();
-
-        for(int i=0;i<resourcesList.size();i++)
+        List<Expert> expertList=expertRepository.findAll();
+        for(int i=0;i<expertList.size();i++)
         {
-            resourcesList.get(i).setType("Passage");
-            resourcesRepository.save(resourcesList.get(i));
 
+            Expert expert=expertList.get(i);
+            expert.setFollowNumber(0);
+            expertRepository.save(expert);
         }
+
+
 
 
         return "success";
