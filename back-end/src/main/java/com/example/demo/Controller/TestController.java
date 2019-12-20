@@ -19,7 +19,7 @@ import java.nio.file.Path;
 
 
 @RestController
-@RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
+
 public class TestController {
     @Autowired
     private UserRepository userRepository;
@@ -48,7 +48,7 @@ public class TestController {
     @PostMapping("/upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file) {
         //FileUtil.WriteFile("D:\\usr\\chenyikun\\",file);
-        FileUtil.WriteFile("/usr/chenyikun/",file);
+        FileUtil.WriteFile("./usr/chenyikun/",file);
 
 
         return "success";

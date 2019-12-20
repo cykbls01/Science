@@ -27,62 +27,62 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/user/upload")
-    public String Upload(@RequestParam("file") MultipartFile file, HttpSession session) {
-        User user=(User)session.getAttribute("user");
+    public String Upload(@RequestParam("file") MultipartFile file,@RequestParam(value = "certificateId")String userid) {
+        User user=userRepository.findById(userid).get();
         UserUtil.UploadImage(user,file,userRepository);
         return "success";
     }
 
     @ResponseBody
     @GetMapping("/user/getImage")
-    public byte[] GetImage(HttpSession session) throws Exception {
-        User user=(User)session.getAttribute("user");
+    public byte[] GetImage(@RequestParam(value = "certificateId")String userid) throws Exception {
+        User user=userRepository.findById(userid).get();
         byte[] byt=UserUtil.GetImage(user,userRepository);
         return byt;
     }
 
 
     @PostMapping("/user/login")
-    public String Login(@RequestBody User user,HttpSession session)
+    public User Login(@RequestBody User user)
     {
 
         if(UserUtil.Login(user,mongoTemplate).equals("success"))
         {
             user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
-            session.setAttribute("user",user);
-            return "success";
+
+            return user;
         }
         else
         {
-            return "error";
+            return null;
         }
     }
 
 
     @PostMapping("/user/register")
-    public String Register(@RequestBody User user,HttpSession session)
+    public User Register(@RequestBody User user)
     {
 
         if(UserUtil.Register(user,userRepository,mongoTemplate).equals("success"))
         {
             user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
-            session.setAttribute("user",user);
-            return "success";
+
+            return user;
         }
         else
         {
-            return "error";
+            return null;
         }
     }
 
     @PostMapping("/user/modify")
-    public String ModifyUser(@RequestBody User user,HttpSession session)
+    public String ModifyUser(@RequestBody User user,@RequestParam(value = "certificateId")String userid)
     {
 
         if(UserUtil.ModifyUser(user,userRepository,mongoTemplate).equals("success"))
         {
             user=userRepository.findById(user.getId()).get();
-            session.setAttribute("user",user);
+
             return "success";
         }
         else
@@ -92,7 +92,7 @@ public class UserController {
     }
 
     @PostMapping("/user/findpwd")
-    public String Findpwd(@RequestParam(value = "email")String email,HttpSession session)
+    public String Findpwd(@RequestParam(value = "email")String email)
     {
         if(UserUtil.FindPassword(email,mongoTemplate).equals("success"))
         {
@@ -100,9 +100,8 @@ public class UserController {
             String VCode=String.valueOf((int)(1+Math.random()*(100000-10000+1)));
             Mail mail=new Mail();
             mail.sendSimpleMail(user.getEmail(),"密码找回邮件",VCode);
-            session.setAttribute("yanzhengma",VCode);
-            session.setAttribute("user",user);
-            return "success";
+
+            return VCode+" "+user.getId();
         }
         else
         {
@@ -124,20 +123,13 @@ public class UserController {
 
 
     @PostMapping("/user/modifypwd")
-    public String Modifypwd(@RequestParam(value = "yanzhengma")String yanzhengma,@RequestParam(value = "newpassword")String pwd,HttpSession session) {
-        String VCode = (String) session.getAttribute("yanzhengma");
-        User user = (User) session.getAttribute("user");
-        if (VCode.equals(yanzhengma))
-        {
+    public String Modifypwd(@RequestParam(value = "newpassword")String pwd,@RequestParam(value = "certificateId")String userid) {
+
+        User user = userRepository.findById(userid).get();
+
             user.setPassword(pwd);
             UserUtil.ModifyPassword(user,userRepository);
             return "success";
-        }
-        else
-        {
-            return "error";
-        }
-
     }
 
 

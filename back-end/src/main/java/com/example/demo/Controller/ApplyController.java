@@ -27,13 +27,13 @@ public class ApplyController {
 private MongoTemplate mongoTemplate;
 
     @PostMapping("/apply/add")
-    public String AddApply(@RequestBody Expert expert, HttpSession httpSession)
+    public String AddApply(@RequestBody Expert expert,@RequestParam(value = "certificateId")String userid)
     {
         Apply apply=new Apply();
         apply.setContent(expert);
         apply.setTime(Time.getTime());
-        User user=(User)httpSession.getAttribute("user");
-        apply.setUserId(user.getId());
+
+        apply.setUserId(userid);
         apply.setStatus("check");
         applyRepository.save(apply);
         return "success";
@@ -41,7 +41,7 @@ private MongoTemplate mongoTemplate;
     }
 
     @PostMapping("/apply/delete")
-    public String DeleteApply(@RequestParam(value = "applyid") String applyid, HttpSession httpSession)
+    public String DeleteApply(@RequestParam(value = "applyid") String applyid)
     {
         applyRepository.deleteById(applyid);
         return "success";
@@ -49,7 +49,7 @@ private MongoTemplate mongoTemplate;
     }
 
     @PostMapping("/apply/getById")
-    public Apply GetApply(@RequestParam(value = "applyid") String applyid, HttpSession httpSession)
+    public Apply GetApply(@RequestParam(value = "applyid") String applyid)
     {
         Apply apply=new Apply();
         apply=applyRepository.findById(applyid).get();
@@ -65,17 +65,17 @@ private MongoTemplate mongoTemplate;
 
     }
     @PostMapping("/apply/getByUserid")
-    public Apply GetApply(HttpSession httpSession)
+    public Apply GetApplyByuserid(@RequestParam(value = "certificateId")String userid)
     {
-        User user=(User)httpSession.getAttribute("user");
+
         Apply apply=new Apply();
-        Query query=new Query(Criteria.where("UserId").is(user.getId()));
+        Query query=new Query(Criteria.where("UserId").is(userid));
         apply=mongoTemplate.findOne(query,Apply.class);
         return  apply;
     }
 
     @PostMapping("/apply/check")
-    public String CheckApply(@RequestParam(value = "applyid") String applyid,@RequestParam(value = "result") String result,@RequestParam(value = "reason") String reason,HttpSession httpSession)
+    public String CheckApply(@RequestParam(value = "applyid") String applyid,@RequestParam(value = "result") String result,@RequestParam(value = "reason") String reason)
     {
         Apply apply=new Apply();
         apply=applyRepository.findById(applyid).get();

@@ -33,13 +33,13 @@ public class FollowController {
 
 
    @PostMapping("/follow/add")
-   public String AddFollow(@RequestParam(value = "follow") String name,HttpSession session)
+   public String AddFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
    {
-       User user=(User)session.getAttribute("user");
+
        Query query=new Query(Criteria.where("Username").is(name));
        User user1=mongoTemplate.findOne(query, User.class);
-
-       Expert expert=expertRepository.findById(user.getExpertId()).get();
+       User user=userRepository.findById(userid).get();
+       Expert expert=expertRepository.findById(user1.getExpertId()).get();
        expert.setFollowNumber(expert.getFollowNumber()+1);
        expertRepository.save(expert);
        Follow follow = new Follow();
@@ -54,12 +54,12 @@ public class FollowController {
 
 
     @PostMapping("/follow/delete")
-    public String DeleteFollow(@RequestParam(value = "follow") String name,HttpSession session)
+    public String DeleteFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
     {
-        User user=(User)session.getAttribute("user");
+        User user=userRepository.findById(userid).get();
         Query query=new Query(Criteria.where("Username").is(name));
         User user1=mongoTemplate.findOne(query, User.class);
-        Expert expert=expertRepository.findById(user.getExpertId()).get();
+        Expert expert=expertRepository.findById(user1.getExpertId()).get();
         expert.setFollowNumber(expert.getFollowNumber()-1);
         expertRepository.save(expert);
         FollowUtil.deleteFollow(user1.getId(),user.getId(),mongoTemplate,followRepository);
@@ -69,26 +69,26 @@ public class FollowController {
 
 
     @GetMapping("/follow/getlist")
-    public List<Expert> GetFollowList(HttpSession session)
+    public List<Expert> GetFollowList(@RequestParam(value = "certificateId")String userid)
     {
-        User user=(User)session.getAttribute("user");
+        User user=userRepository.findById(userid).get();
         List<Expert> expertList=FollowUtil.seeFollowList(user.getId(),mongoTemplate);
         return expertList;
     }
 
     @GetMapping("/follow/isfollow")//通过用户关注
-    public Boolean IsFollow(@RequestParam(value = "follow") String name,HttpSession session)
+    public Boolean IsFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
     {
-        User user=(User)session.getAttribute("user");
+        User user=userRepository.findById(userid).get();
         Query query=new Query(Criteria.where("Username").is(name));
         User user1=mongoTemplate.findOne(query, User.class);
 
         return FollowUtil.hasFocus(user1.getId(),user.getId(),mongoTemplate);
     }
     @GetMapping("/expert/isfollow")//通过专家关注
-    public Boolean isFollow(@RequestParam(value = "follow") String id,HttpSession session)
+    public Boolean isFollow(@RequestParam(value = "follow") String id,@RequestParam(value = "certificateId")String userid)
     {
-        User user=(User)session.getAttribute("user");
+        User user=userRepository.findById(userid).get();
         return FollowUtil.hasFocus(id,user.getId(),mongoTemplate);
     }
 

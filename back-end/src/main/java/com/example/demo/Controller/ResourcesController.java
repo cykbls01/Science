@@ -35,11 +35,11 @@ public class ResourcesController {
 
 
     @PostMapping("/resources/add")
-    public String AddResources(@RequestBody Resources resources, HttpSession session)
+    public String AddResources(@RequestBody Resources resources,@RequestParam(value = "certificateId")String userid)
     {
 
-        User user=(User)session.getAttribute("user");
-        resources.setUserId(user.getId());
+
+        resources.setUserId(userid);
         ResourcesUtil.AddResources(resources,resourcesRepository);
         return "success";
 
@@ -48,12 +48,11 @@ public class ResourcesController {
 
 
     @PostMapping("/resources/delete")
-    public String DeleteResources(@RequestBody Resources resources, HttpSession session)
+    public String DeleteResources(@RequestBody Resources resources,@RequestParam(value = "certificateId")String userid)
     {
 
         resources=resourcesRepository.findById(resources.getid()).get();
-        User user=(User)session.getAttribute("user");
-        if(resources.getUserId().equals(user.getId())==false)
+        if(resources.getUserId().equals(userid)==false)
             return "error";
         ResourcesUtil.DeleteResources(resources,resourcesRepository);
         return "success";
@@ -62,30 +61,39 @@ public class ResourcesController {
 
 
     @PostMapping("/resources/find")
-    public List<Resources> FindResources(@RequestParam(value = "name") String name, HttpSession session) throws ParseException {
+    public List<Resources> FindResources(@RequestParam(value = "name") String name) throws ParseException {
 
         List<Resources> resourcesList=ResourcesUtil.SearchResources(name,mongoTemplate);
-        session.setAttribute("baoliu",resourcesList);
+
         return resourcesList;
 
     }
 
-    @PostMapping("/resources/findinresult")
-    public List<Resources> FindResourcesInResult(@RequestParam(value = "name") String name, HttpSession session) throws ParseException {
+    @PostMapping("/resources/findInResources")
+    public List<Resources> FindResourcesInResult(@RequestParam(value = "name") String name, @RequestParam(value = "result") List<Resources> baoliu) throws ParseException {
 
         List<Resources> newlist=new ArrayList<Resources>();
-        List<Resources> baoliu=(List<Resources>)session.getAttribute("baoliu");
         for(int i=0;i<baoliu.size();i++) {
             if(baoliu.get(i).getTitle().contains(name)||baoliu.get(i).getAbstract().contains(name))
                 newlist.add(baoliu.get(i));
         }
-        session.setAttribute("baoliu",newlist);
+        return newlist;
+
+    }
+    @PostMapping("/resources/findInExpert")
+    public List<Expert> FindExpertInResult(@RequestParam(value = "name") String name, @RequestParam(value = "result") List<Expert> baoliu) throws ParseException {
+
+        List<Expert> newlist=new ArrayList<Expert>();
+        for(int i=0;i<baoliu.size();i++) {
+            if(baoliu.get(i).getRealName().contains(name)||baoliu.get(i).getCompany().contains(name))
+                newlist.add(baoliu.get(i));
+        }
         return newlist;
 
     }
 
     @PostMapping("/expert/findById")
-    public Resources FindById(@RequestParam(value = "id") String id,HttpSession session) throws ParseException {
+    public Resources FindById(@RequestParam(value = "id") String id) throws ParseException {
 
 
         return resourcesRepository.findById(id).get();
@@ -93,7 +101,7 @@ public class ResourcesController {
     }
 
     @PostMapping("/expert/find")
-    public List<Expert> FindExpert(@RequestParam(value = "name") String name,HttpSession session) throws ParseException {
+    public List<Expert> FindExpert(@RequestParam(value = "name") String name) throws ParseException {
 
         List<Expert> expertList= ResourcesUtil.SearchExpert(name, mongoTemplate);
         return expertList;
