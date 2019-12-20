@@ -112,7 +112,10 @@ public class ResourcesController {
     public List<Resources> RecommandResources() throws ParseException {
 
         List<Resources> resourcesList=ResourcesUtil.SearchResources("人工智能",mongoTemplate);
-        return resourcesList;
+        if(resourcesList.size()>=8)
+        return resourcesList.subList(0,7);
+        else
+            return resourcesList;
 
     }
 
