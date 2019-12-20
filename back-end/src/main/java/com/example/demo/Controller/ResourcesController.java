@@ -22,6 +22,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value="/rest",produces = "application/json;charset-utf-8")
 public class ResourcesController {
+
+
+
     @Autowired
     private ResourcesRepository resourcesRepository;
 
@@ -62,7 +65,22 @@ public class ResourcesController {
     public List<Resources> FindResources(@RequestParam(value = "name") String name, HttpSession session) throws ParseException {
 
         List<Resources> resourcesList=ResourcesUtil.SearchResources(name,mongoTemplate);
+        session.setAttribute("baoliu",resourcesList);
         return resourcesList;
+
+    }
+
+    @PostMapping("/resources/findinresult")
+    public List<Resources> FindResourcesInResult(@RequestParam(value = "name") String name, HttpSession session) throws ParseException {
+
+        List<Resources> newlist=new ArrayList<Resources>();
+        List<Resources> baoliu=(List<Resources>)session.getAttribute("baoliu");
+        for(int i=0;i<baoliu.size();i++) {
+            if(baoliu.get(i).getTitle().contains(name)||baoliu.get(i).getAbstract().contains(name))
+                newlist.add(baoliu.get(i));
+        }
+        session.setAttribute("baoliu",newlist);
+        return newlist;
 
     }
 
