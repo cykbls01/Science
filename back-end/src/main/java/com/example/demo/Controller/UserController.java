@@ -85,18 +85,18 @@ public class UserController {
     }
 
     @PostMapping("/user/modify")
-    public String ModifyUser(@RequestBody User user)
+    public User ModifyUser(@RequestBody User user)
     {
 
         if(UserUtil.ModifyUser(user,userRepository,mongoTemplate).equals("success"))
         {
             user=userRepository.findById(user.getId()).get();
 
-            return "success";
+            return user;
         }
         else
         {
-            return "error";
+            return null;
         }
     }
 
