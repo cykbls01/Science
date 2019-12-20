@@ -19,8 +19,9 @@ public class FileUtil {
         try {
             byte[] bytes = file.getBytes();
             File file1=new File(location+file.getOriginalFilename());
+
             if(!file1.exists()){
-                file1.mkdir();
+                file1.createNewFile();
             }
 
             Path path = Paths.get(location+file.getOriginalFilename());

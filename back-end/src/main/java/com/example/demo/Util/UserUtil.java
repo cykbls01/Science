@@ -97,7 +97,7 @@ public class UserUtil {
         //FileUtil.DeleteFile("/usr/chenyikun/"+user.getId()+"/image/"+user.getImageName());
         user.setImageName(file.getOriginalFilename());
         userRepository.save(user);
-        FileUtil.WriteFile("/usr/chenyikun/"+user.getId()+"/image/"+file.getOriginalFilename(),file);
+        FileUtil.WriteFile("/usr/chenyikun/"+user.getId()+"/image/",file);
         return "success";
 
     }

@@ -23,11 +23,11 @@ public class Resources {
     private String Location;
     private String certificateId;
 
-    public String getId() {
+    public String getid() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setid(String id) {
         this.id = id;
     }
 
@@ -39,13 +39,7 @@ public class Resources {
         this.certificateId = certificateId;
     }
 
-    public String getid() {
-        return id;
-    }
 
-    public void setid(String id) {
-        this.id = id;
-    }
 
     public String getUserId() {
         return UserId;

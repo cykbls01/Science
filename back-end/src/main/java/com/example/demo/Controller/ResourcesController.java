@@ -103,15 +103,15 @@ public class ResourcesController {
     @PostMapping("/expert/find")
     public List<Expert> FindExpert(@RequestParam(value = "name") String name) throws ParseException {
 
-        List<Expert> expertList= ResourcesUtil.SearchExpert(name, mongoTemplate);
+        List<Expert> expertList = ResourcesUtil.SearchExpert(name, mongoTemplate);
         return expertList;
 
     }
-
+    @ResponseBody
     @GetMapping("/resources/recommand")
     public List<Resources> RecommandResources() throws ParseException {
 
-        List<Resources> resourcesList=ResourcesUtil.SearchResources("computer",mongoTemplate);
+        List<Resources> resourcesList=ResourcesUtil.SearchResources("人工智能",mongoTemplate);
         return resourcesList;
 
     }
