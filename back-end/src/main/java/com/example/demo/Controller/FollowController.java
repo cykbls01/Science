@@ -76,7 +76,7 @@ public class FollowController {
         return expertList;
     }
 
-    @GetMapping("/follow/isfollow")
+    @GetMapping("/follow/isfollow")//通过用户关注
     public Boolean IsFollow(@RequestParam(value = "follow") String name,HttpSession session)
     {
         User user=(User)session.getAttribute("user");
@@ -84,6 +84,12 @@ public class FollowController {
         User user1=mongoTemplate.findOne(query, User.class);
 
         return FollowUtil.hasFocus(user1.getId(),user.getId(),mongoTemplate);
+    }
+    @GetMapping("/expert/isfollow")//通过专家关注
+    public Boolean isFollow(@RequestParam(value = "follow") String id,HttpSession session)
+    {
+        User user=(User)session.getAttribute("user");
+        return FollowUtil.hasFocus(id,user.getId(),mongoTemplate);
     }
 
 

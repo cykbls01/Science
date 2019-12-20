@@ -85,6 +85,12 @@ public class ZhongzhuanController {
             for(int j=0;j<k.length;j++)
             resources.getKeyword().add(k[j]);
             resources.setUserId(expert.getId());
+            resources.setAuthorName(new ArrayList<String>());
+            resources.setAuthorCompany(new ArrayList<String>());
+            if(expert.getRealName()!=null)
+                resources.getAuthorName().add(expert.getRealName());
+            if(expert.getCompany()!=null)
+                resources.getAuthorCompany().add(expert.getCompany());
             resourcesRepository.save(resources);
 
         }
@@ -109,6 +115,24 @@ public class ZhongzhuanController {
             if(expert.getCompany()!=null)
                 resources.getAuthorCompany().add(expert.getCompany());
             resourcesRepository.save(resources);
+
+        }
+
+
+        return "success";
+
+    }
+
+    @ResponseBody
+    @GetMapping("/zhongzhuan3")
+    public String zhongzhuan3()
+    {
+        List<Resources> resourcesList=resourcesRepository.findAll();
+
+        for(int i=0;i<resourcesList.size();i++)
+        {
+            resourcesList.get(i).setType("Passage");
+            resourcesRepository.save(resourcesList.get(i));
 
         }
 

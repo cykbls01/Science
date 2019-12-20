@@ -45,8 +45,11 @@ public class ResourcesUtil {
 
     public static List<Resources> SearchResources(String name, MongoTemplate mongoTemplate) throws ParseException {
         List<Resources> resourcesList= ResourcesDao.FindByTiTle(name,mongoTemplate);
+        if(resourcesList.size()>=50)
+            resourcesList=resourcesList.subList(0,50);
         resourcesList=Time.sort(resourcesList);
-        return resourcesList;
+
+        return resourcesList.subList(0,50);
     }
     public static List<Expert> SearchExpert(String name, MongoTemplate mongoTemplate) throws ParseException {
         List<Expert> resourcesList= ResourcesDao.FindByName(name,mongoTemplate);
