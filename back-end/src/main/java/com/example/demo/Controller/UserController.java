@@ -54,35 +54,35 @@ public class UserController {
 
 
     @PostMapping("/user/login")
-    public User Login(@RequestBody User user)
+    public String Login(@RequestBody User user)
     {
 
         if(UserUtil.Login(user,mongoTemplate).equals("success"))
         {
             user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
 
-            return user;
+            return "success";
         }
         else
         {
-            return null;
+            return "error";
         }
     }
 
 
     @PostMapping("/user/register")
-    public User Register(@RequestBody User user)
+    public String Register(@RequestBody User user)
     {
 
         if(UserUtil.Register(user,userRepository,mongoTemplate).equals("success"))
         {
             user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
 
-            return user;
+            return "success";
         }
         else
         {
-            return null;
+            return "error";
         }
     }
 
