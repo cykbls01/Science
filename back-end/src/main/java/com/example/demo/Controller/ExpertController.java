@@ -22,12 +22,12 @@ public class ExpertController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @GetMapping("/expert/info")
+    @PostMapping("/expert/info")
     public Expert GetExpertInfo(@RequestParam(value = "expertId")String id)
     {
 
         Expert expert=new Expert();
-        expert=expertRepository.findById(expert.getId()).get();
+        expert=expertRepository.findById(id).get();
         return expert;
 
     }

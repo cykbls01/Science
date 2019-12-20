@@ -41,6 +41,7 @@ public class FollowController {
 
        Expert expert=expertRepository.findById(user.getExpertId()).get();
        expert.setFollowNumber(expert.getFollowNumber()+1);
+       expertRepository.save(expert);
        Follow follow = new Follow();
        follow.setFanId(user.getId());
        follow.setFollowId(user1.getId());
@@ -60,6 +61,7 @@ public class FollowController {
         User user1=mongoTemplate.findOne(query, User.class);
         Expert expert=expertRepository.findById(user.getExpertId()).get();
         expert.setFollowNumber(expert.getFollowNumber()-1);
+        expertRepository.save(expert);
         FollowUtil.deleteFollow(user1.getId(),user.getId(),mongoTemplate,followRepository);
         return "success";
     }
