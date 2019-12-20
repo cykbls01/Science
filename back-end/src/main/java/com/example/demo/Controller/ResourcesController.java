@@ -72,7 +72,8 @@ public class ResourcesController {
     @PostMapping("/resources/findInResources")
     public List<Resources> FindResourcesInResult(@RequestParam(value = "name") String name, @RequestParam(value = "result") List<Resources> baoliu) throws ParseException {
 
-        List<Resources> newlist=new ArrayList<Resources>();
+        List<Resources> newlist=baoliu;
+        newlist.clear();
         for(int i=0;i<baoliu.size();i++) {
             if(baoliu.get(i).getTitle().contains(name)||baoliu.get(i).getAbstract().contains(name))
                 newlist.add(baoliu.get(i));
@@ -83,7 +84,8 @@ public class ResourcesController {
     @PostMapping("/resources/findInExpert")
     public List<Expert> FindExpertInResult(@RequestParam(value = "name") String name, @RequestParam(value = "result") List<Expert> baoliu) throws ParseException {
 
-        List<Expert> newlist=new ArrayList<Expert>();
+        List<Expert> newlist=baoliu;
+        newlist.clear();
         for(int i=0;i<baoliu.size();i++) {
             if(baoliu.get(i).getRealName().contains(name)||baoliu.get(i).getCompany().contains(name))
                 newlist.add(baoliu.get(i));
