@@ -85,7 +85,7 @@ public class FollowController {
 
         return FollowUtil.hasFocus(user1.getId(),user.getId(),mongoTemplate);
     }
-    @GetMapping("/expert/isfollow")//通过专家关注
+    @PostMapping("/expert/isfollow")//通过专家关注
     public Boolean isFollow(@RequestParam(value = "follow") String id,@RequestParam(value = "certificateId")String userid)
     {
         User user=userRepository.findById(userid).get();

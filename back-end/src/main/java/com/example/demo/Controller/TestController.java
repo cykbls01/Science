@@ -47,8 +47,8 @@ public class TestController {
     @ResponseBody
     @PostMapping("/upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file) {
-        //FileUtil.WriteFile("D:\\usr\\chenyikun\\",file);
-        FileUtil.WriteFile("./usr/chenyikun/",file);
+        FileUtil.WriteFile("D:\\usr\\chenyikun\\",file);
+       // FileUtil.WriteFile("./usr/chenyikun/",file);
 
 
         return "success";
@@ -71,7 +71,7 @@ public class TestController {
     public byte[] image() throws Exception {
 
 
-        byte[] byt = FileUtil.GetImage("D:/usr/chenyikun/你好.jpeg");
+        byte[] byt = FileUtil.GetImage("D:/usr/chenyikun/你好.jpg");
         return byt;
     }
 
