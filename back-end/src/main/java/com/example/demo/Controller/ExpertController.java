@@ -32,7 +32,7 @@ public class ExpertController {
 
     }
 
-    @GetMapping("/expert/resoureces")
+    @GetMapping("/expert/resources")
     public List<Resources> GetResouerces(@RequestParam(value = "expertId")String id) throws ParseException {
         List<Resources> resources= ResourcesDao.FindByUserid(id,mongoTemplate);
         Time.sort(resources);
