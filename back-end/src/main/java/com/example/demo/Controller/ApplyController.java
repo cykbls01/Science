@@ -58,7 +58,7 @@ private UserRepository userRepository;
         return apply;
 
     }
-    @PostMapping("/apply/getAll")
+    @GetMapping("/apply/getAll")
     public List<Apply> GetApply()
     {
         List<Apply> apply;
