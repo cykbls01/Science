@@ -86,11 +86,13 @@ private UserRepository userRepository;
         User user=userRepository.findById(apply.getUserId()).get();
 
 
-        if(result=="success") {
+        if(result=="1") {
             user.setExpertId(apply.getContent().getId());
             userRepository.save(user);
+
         }
-        applyRepository.save(apply);
+        applyRepository.delete(apply);
+
         return  "success";
     }
 
