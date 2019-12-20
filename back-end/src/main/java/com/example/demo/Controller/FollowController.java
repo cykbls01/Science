@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,17 +37,16 @@ public class FollowController {
    public String AddFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
    {
 
-       Query query=new Query(Criteria.where("Username").is(name));
-       User user1=mongoTemplate.findOne(query, User.class);
+       Query query=new Query(Criteria.where("RealName").is(name));
+       Expert expert=mongoTemplate.findOne(query, Expert.class);
        User user=userRepository.findById(userid).get();
-       Expert expert=expertRepository.findById(user1.getExpertId()).get();
        expert.setFollowNumber(expert.getFollowNumber()+1);
        expertRepository.save(expert);
        Follow follow = new Follow();
        follow.setFanId(user.getId());
-       follow.setFollowId(user1.getId());
+       follow.setFollowId(expert.getId());
        follow.setFanname(user.getUsername());
-       follow.setFollowname(user.getUsername());
+       follow.setFollowname(expert.getRealName());
        followRepository.save(follow);
        return "success";
 
@@ -57,33 +57,37 @@ public class FollowController {
     public String DeleteFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
     {
         User user=userRepository.findById(userid).get();
-        Query query=new Query(Criteria.where("Username").is(name));
-        User user1=mongoTemplate.findOne(query, User.class);
-        Expert expert=expertRepository.findById(user1.getExpertId()).get();
+        Query query=new Query(Criteria.where("RealName").is(name));
+        Expert expert=mongoTemplate.findOne(query, Expert.class);
+
         expert.setFollowNumber(expert.getFollowNumber()-1);
         expertRepository.save(expert);
-        FollowUtil.deleteFollow(user1.getId(),user.getId(),mongoTemplate,followRepository);
+        FollowUtil.deleteFollow(expert.getId(),user.getId(),mongoTemplate,followRepository);
         return "success";
     }
 
 
 
-    @GetMapping("/follow/getlist")
+    @PostMapping("/follow/getlist")
     public List<Expert> GetFollowList(@RequestParam(value = "certificateId")String userid)
     {
         User user=userRepository.findById(userid).get();
-        List<Expert> expertList=FollowUtil.seeFollowList(user.getId(),mongoTemplate);
+        List<Expert> expertList=new ArrayList<Expert>();
+        Query query = new Query(Criteria.where("fanId").is(userid));
+        List<Follow> followList = mongoTemplate.find(query,Follow.class);
+        for(int i=0;i<followList.size();i++)
+            expertList.add(expertRepository.findById(followList.get(i).getId()).get());
         return expertList;
     }
 
-    @GetMapping("/follow/isfollow")//通过用户关注
+    @PostMapping("/follow/isfollow")//通过用户关注
     public Boolean IsFollow(@RequestParam(value = "follow") String name,@RequestParam(value = "certificateId")String userid)
     {
         User user=userRepository.findById(userid).get();
-        Query query=new Query(Criteria.where("Username").is(name));
-        User user1=mongoTemplate.findOne(query, User.class);
+        Query query=new Query(Criteria.where("RealName").is(name));
+        Expert expert=mongoTemplate.findOne(query, Expert.class);
 
-        return FollowUtil.hasFocus(user1.getId(),user.getId(),mongoTemplate);
+        return FollowUtil.hasFocus(expert.getId(),user.getId(),mongoTemplate);
     }
     @PostMapping("/expert/isfollow")//通过专家关注
     public Boolean isFollow(@RequestParam(value = "follow") String id,@RequestParam(value = "certificateId")String userid)
