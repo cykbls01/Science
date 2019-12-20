@@ -9,6 +9,7 @@ import com.example.demo.Util.Mail;
 import com.example.demo.Util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +26,7 @@ public class UserController {
     private MongoTemplate mongoTemplate;
 
 
-    @ResponseBody
+
     @PostMapping("/user/upload")
     public String Upload(@RequestParam("file") MultipartFile file,@RequestParam(value = "certificateId")String userid) {
         User user=userRepository.findById(userid).get();
@@ -33,10 +34,13 @@ public class UserController {
         return "success";
     }
 
+
+
+
     @ResponseBody
-    @GetMapping("/user/getImage")
-    public byte[] GetImage(@RequestParam(value = "certificateId")String userid) throws Exception {
-        User user=userRepository.findById(userid).get();
+    @GetMapping(value="/user/getImage/{id}" ,produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public byte[] GetImage(@PathVariable String id) throws Exception {
+        User user=userRepository.findById(id).get();
         byte[] byt=UserUtil.GetImage(user,userRepository);
         return byt;
     }
