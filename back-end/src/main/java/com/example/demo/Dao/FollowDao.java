@@ -26,7 +26,7 @@ public class FollowDao {
     public static List<Follow> findFollowByID(String fanId, MongoTemplate mongoTemplate){
         Query query = new Query(Criteria.where("fanId").is(fanId));
         List<Follow> followList = mongoTemplate.find(query,Follow.class);
-        if(followList.size() != 0)
+        if(followList.size() == 0)
             return null;
         return followList;
     }

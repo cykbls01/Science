@@ -23,7 +23,7 @@ public class ExpertController {
     MongoTemplate mongoTemplate;
 
     @PostMapping("/expert/info")
-    public Expert GetExpertInfo(@RequestParam(value = "expertId")String id)
+    public Expert GetExpertInfo(@RequestParam(value = "id")String id)
     {
 
         Expert expert=new Expert();
@@ -32,8 +32,8 @@ public class ExpertController {
 
     }
 
-    @GetMapping("/expert/resources")
-    public List<Resources> GetResouerces(@RequestParam(value = "expertId")String id) throws ParseException {
+    @PostMapping("/expert/resources")
+    public List<Resources> GetResouerces(@RequestParam(value = "id")String id) throws ParseException {
         List<Resources> resources= ResourcesDao.FindByUserid(id,mongoTemplate);
         Time.sort(resources);
         return resources;

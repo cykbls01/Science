@@ -28,10 +28,12 @@ public class UserController {
 
 
     @PostMapping("/user/upload")
-    public String Upload(@RequestParam("file") MultipartFile file,@RequestParam(value = "certificateId")String userid) {
+    public User Upload(@RequestParam("url") String url,@RequestParam(value = "certificateId")String userid) {
         User user=userRepository.findById(userid).get();
-        UserUtil.UploadImage(user,file,userRepository);
-        return "success";
+        user.setImageName(url);
+        userRepository.save(user);
+
+        return user;
     }
     @PostMapping("/user/upload1")
     public String Upload1(@RequestParam("file") MultipartFile file,@RequestParam(value = "certificateId")String userid) {
