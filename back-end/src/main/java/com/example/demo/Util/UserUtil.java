@@ -56,16 +56,16 @@ public class UserUtil {
     public static String ModifyUser(User user,UserRepository userRepository,MongoTemplate mongoTemplate)//修改个人信息，先查看用户名和邮箱是否重复，然后完成修改
     {
         User user1=userRepository.findById(user.getId()).get();
-        if(user1.getUsername().equals(user.getUsername())==false&&UserDao.FindUserByName(user.getUsername(),mongoTemplate)!=null)
+        /*if(user1.getUsername().equals(user.getUsername())==false&&UserDao.FindUserByName(user.getUsername(),mongoTemplate)!=null)
             return "error";
         else if(user1.getEmail().equals(user.getEmail())==false&&UserDao.FindUserByEmail(user.getEmail(),mongoTemplate)!=null)
             return "error";
         else
-        {
+        {*/
             user.setId(user1.getId());
             userRepository.save(user);
             return "success";
-        }
+        //}
     }
 
     public static String ModifyPassword(User user,UserRepository userRepository)//修改密码
