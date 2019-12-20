@@ -34,7 +34,6 @@ private UserRepository userRepository;
         Apply apply=new Apply();
         apply.setContent(expert);
         apply.setTime(Time.getTime());
-
         apply.setUserId(expert.getCertificateId());
         apply.setStatus("check");
         applyRepository.save(apply);
@@ -73,7 +72,7 @@ private UserRepository userRepository;
         Apply apply=new Apply();
         Query query=new Query(Criteria.where("UserId").is(userid));
         apply=mongoTemplate.findOne(query,Apply.class);
-        return  apply;
+        return apply;
     }
 
     @PostMapping("/apply/check")

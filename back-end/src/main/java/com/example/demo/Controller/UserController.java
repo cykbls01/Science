@@ -32,14 +32,14 @@ public class UserController {
         User user=userRepository.findById(userid).get();
         user.setImageName(url);
         userRepository.save(user);
-
         return user;
     }
-    @PostMapping("/user/upload1")
-    public String Upload1(@RequestParam("file") MultipartFile file,@RequestParam(value = "certificateId")String userid) {
+
+    @PostMapping("/user/getload")
+    public String Upload1(@RequestParam(value = "certificateId")String userid) {
         User user=userRepository.findById(userid).get();
-        UserUtil.UploadImage(user,file,userRepository);
-        return "success";
+
+        return user.getImageName();
     }
 
 
@@ -59,7 +59,6 @@ public class UserController {
 
         if(UserUtil.Login(user,mongoTemplate).equals("success"))
         {
-            user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
 
             return "success";
         }
@@ -76,7 +75,6 @@ public class UserController {
 
         if(UserUtil.Register(user,userRepository,mongoTemplate).equals("success"))
         {
-            user= UserDao.FindUserByName(user.getUsername(),mongoTemplate);
 
             return "success";
         }
@@ -93,7 +91,6 @@ public class UserController {
         if(UserUtil.ModifyUser(user,userRepository,mongoTemplate).equals("success"))
         {
             user=userRepository.findById(user.getId()).get();
-
             return user;
         }
         else
@@ -125,7 +122,7 @@ public class UserController {
     {
         return userRepository.findById(id).get();
     }
-
+    @ResponseBody
     @PostMapping("/user/findbyname")
     public User FindbyName(@RequestParam(value = "name")String name)
     {
