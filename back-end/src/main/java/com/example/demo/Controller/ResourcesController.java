@@ -38,8 +38,8 @@ public class ResourcesController {
     public String AddResources(@RequestBody Resources resources)
     {
 
-
-        resources.setUserId(resources.getCertificateId());
+        User user=userRepository.findById(resources.getCertificateId()).get();
+        resources.setUserId(user.getExpertId());
         ResourcesUtil.AddResources(resources,resourcesRepository);
         return "success";
 

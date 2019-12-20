@@ -6,6 +6,7 @@ import com.example.demo.Entity.Expert;
 import com.example.demo.Entity.Resources;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.ApplyRepository;
+import com.example.demo.Repository.UserRepository;
 import com.example.demo.Util.Time;
 import com.mongodb.Mongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class ApplyController {
     private ApplyRepository applyRepository;
 @Autowired
 private MongoTemplate mongoTemplate;
-
+@Autowired
+private UserRepository userRepository;
     @PostMapping("/apply/add")
     public String AddApply(@RequestBody Expert expert)
     {
@@ -81,6 +83,13 @@ private MongoTemplate mongoTemplate;
         apply=applyRepository.findById(applyid).get();
         apply.setStatus(result);
         apply.setReason(reason);
+        User user=userRepository.findById(apply.getUserId()).get();
+
+
+        if(result=="success") {
+            user.setExpertId(apply.getContent().getId());
+            userRepository.save(user);
+        }
         applyRepository.save(apply);
         return  "success";
     }
