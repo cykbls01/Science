@@ -74,6 +74,7 @@ public class ZhongzhuanController {
             Expert expert=new Expert();
             expert.setRealName(wanFangs.get(i).getAuthor());
             expert.setCompany(wanFangs.get(i).getUnit());
+            expert.setFollowNumber(0);
             expert=expertRepository.save(expert);
             Resources resources=new Resources();
             resources.setTitle(wanFangs.get(i).getTitle());
@@ -91,6 +92,7 @@ public class ZhongzhuanController {
                 resources.getAuthorName().add(expert.getRealName());
             if(expert.getCompany()!=null)
                 resources.getAuthorCompany().add(expert.getCompany());
+            resources.setType("Passage");
             resourcesRepository.save(resources);
 
         }
@@ -127,13 +129,40 @@ public class ZhongzhuanController {
     @GetMapping("/zhongzhuan3")
     public String zhongzhuan3()
     {
-        List<Expert> expertList=expertRepository.findAll();
-        for(int i=0;i<expertList.size();i++)
+        int k=500;
+        List<Resources> resourcesList=resourcesRepository.findAll();
+        for(int i=0;i<resourcesList.size();i++)
         {
+            for(int j=i+1;j<resourcesList.size();j++) {
+                try {
+                    if (resourcesList.get(i).getTitle().equals(resourcesList.get(j).getTitle())) {
+                        Expert expert = new Expert();
+                        if (resourcesList.get(i).getUserId() != null) {
+                            expert.setId(resourcesList.get(i).getUserId());
+                            expertRepository.delete(expert);
 
-            Expert expert=expertList.get(i);
-            expert.setFollowNumber(0);
-            expertRepository.save(expert);
+
+                        }
+                        resourcesRepository.delete(resourcesList.get(i));
+                        k--;
+                        System.out.println(resourcesList.get(i).getTitle());
+                        System.out.println(resourcesList.get(j).getTitle());
+                        if (k == 0) return "error";
+
+
+                    }
+
+
+                }
+                catch(Exception e)
+                {
+                    continue;
+
+                }
+            }
+
+
+
         }
 
 

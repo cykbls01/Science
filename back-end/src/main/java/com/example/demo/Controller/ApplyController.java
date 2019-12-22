@@ -6,6 +6,7 @@ import com.example.demo.Entity.Expert;
 import com.example.demo.Entity.Resources;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.ApplyRepository;
+import com.example.demo.Repository.ExpertRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Util.Time;
 import com.mongodb.Mongo;
@@ -24,6 +25,8 @@ import java.util.List;
 public class ApplyController {
     @Autowired
     private ApplyRepository applyRepository;
+    @Autowired
+    private ExpertRepository expertRepository;
 @Autowired
 private MongoTemplate mongoTemplate;
 @Autowired
@@ -83,10 +86,12 @@ private UserRepository userRepository;
         apply.setStatus(result);
         apply.setReason(reason);
         User user=userRepository.findById(apply.getUserId()).get();
+        Expert expert=apply.getContent();
+        expert=expertRepository.save(expert);
 
 
         if(result=="1") {
-            user.setExpertId(apply.getContent().getId());
+            user.setExpertId(expert.getId());
             userRepository.save(user);
 
         }
