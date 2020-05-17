@@ -3,7 +3,6 @@ package com.example.demo.Controller;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Util.FileUtil;
-import com.example.demo.Util.ResourcesUtil;
 import com.example.demo.Util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
